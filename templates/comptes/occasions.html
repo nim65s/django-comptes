@@ -1,0 +1,43 @@
+{% extends "comptes/comptes.html" %}
+
+{% block content %}
+<h1>Occasions</h1>
+
+{% for occasion in occasions %}<div style="float: left;">
+<h2>{{ occasion.nom }}{% if occasions|length > 1 %} (<a href="{% url 'comptes:occasion' occasion.slug %}">ne voir que celle-ci</a>){% endif %}</h2>
+    <p>{{ occasion.description }}</p><!-- TODO: dictionnaire ? -->
+    <dl>
+        <dd>Membres</dd><dp><ul>{% for membre in occasion.membres.all %}<li>{{ membre }}</li>{% endfor %}</ul></dp>
+        <dd>Début</dd><dp>{{ occasion.debut }}</dp>
+        <dd>Fin</dd><dp>{{ occasion.fin }}</dp>
+    </dl>
+    {% if occasion.clos %}<p>Clos</p>{% endif %}
+    <h2>Soldes</h2>
+    <table><tr><th>Membre</th><th>Solde</th></tr>
+    {% for membre, solde in occasion.membres_et_soldes %}<tr>
+        <td>{{ membre }}</td>
+        <td>{{ solde }}</td>
+    </tr>{% endfor%}
+    </table>
+    <h2>Dettes</h2>
+    <table><tr><th>Créancier</th><th>Montant</th><th>Débiteurs</th><th>Moment</th><th>Description</th></tr>
+    {% for dette in occasion.dette_set.all %}<tr>
+        <td>{{ dette.creancier }}</td>
+        <td>{{ dette.montant }} €</td>
+        <td>{{ dette.debiteurs.all|join:", " }}</td>
+        <td>{{ dette.moment }}</td>
+        <td>{{ dette.description }}</td>
+    </tr>{% endfor %}
+    </table>
+    <h2>Remboursements</h2>
+    <table><tr><th>Créditeur</th><th>Crédité</th><th>Montant</th><th>Moment<th></tr>
+    {% for remboursement in occasion.remboursement_set.all %}<tr>
+        <td>{{ remboursement.crediteur }}</td>
+        <td>{{ remboursement.credite }}</td>
+        <td>{{ remboursement.montant }} €</td>
+        <td>{{ remboursement.moment }}</td>
+    </tr>{% endfor %}
+    </table>
+</div>{% endfor %}
+
+{% endblock %}

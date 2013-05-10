@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+
+{% block titre %}Nim’s web.log: Comptes{% endblock %}
+{% block soustitre %}Comptes{% endblock %}
+
+{% block nav %}
+    <li><a href="{% url 'comptes:home' %}">Occasions</a></li>
+    <li><a href="{% url 'comptes:about' %}">À propos des Comptes…</a></li>
+    <li><a href="{% url 'comptes:faq' %}">FAQ</a></li>
+{% endblock %}
