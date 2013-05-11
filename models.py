@@ -18,8 +18,8 @@ class Occasion(Model):
     def __unicode__(self):
         return u"Occasion: %s" % self.nom
 
-    def membres_et_soldes(self):
-        return [(membre, self.solde(membre)) for membre in self.membres.all()]
+    def solde_des_membres(self):
+        return sorted([(self.solde(membre), membre) for membre in self.membres.all()], reverse=True)
 
     def solde(self, membre):
         solde = 0
