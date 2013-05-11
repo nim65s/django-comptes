@@ -12,3 +12,4 @@ def home(request, slug=None):
     else:
         occasions = [get_object_or_404(Occasion, slug=slug)]
     return render(request, 'comptes/occasions.html', {'occasions': occasions})
+

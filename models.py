@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+
 from django.db.models import Model, ForeignKey, ManyToManyField
 from django.db.models import DecimalField, DateTimeField, SlugField
 from django.db.models import CharField, TextField, BooleanField, Sum
@@ -13,6 +14,9 @@ class Occasion(Model):
     debut = DateTimeField()
     fin = DateTimeField()
     clos = BooleanField(default=False)
+
+    def __unicode__(self):
+        return u"Occasion: %s" % self.nom
 
     def membres_et_soldes(self):
         return [(membre, self.solde(membre)) for membre in self.membres.all()]
@@ -33,8 +37,7 @@ class Occasion(Model):
             solde -= debits
         if credits:
             solde += credits
-        return round(solde, 2)
-
+        return round(solde, 2)  # Les soldes sont donnés à un centime près.
 
 
 class Dette(Model):
@@ -45,6 +48,11 @@ class Dette(Model):
     moment = DateTimeField()
     occasion = ForeignKey(Occasion)
 
+    def __unicode__(self):
+        return u"Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, len(self.debiteurs.all()), self.description)
+    class Meta:
+        ordering = ["moment"]
+
 
 class Remboursement(Model):
     crediteur = ForeignKey(User, related_name='debits')
@@ -53,3 +61,8 @@ class Remboursement(Model):
     moment = DateTimeField()
     occasion = ForeignKey(Occasion, null=True)
 
+    def __unicode__(self):
+        return u"%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
+
+    class Meta:
+        ordering = ["moment"]
