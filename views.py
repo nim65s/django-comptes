@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import Http404
 
 from comptes.models import Dette, Remboursement, Occasion
 
@@ -11,5 +12,6 @@ def home(request, slug=None):
         occasions = request.user.occasion_set.filter(clos=False)
     else:
         occasions = [get_object_or_404(Occasion, slug=slug)]
+        if request.user not in occasions[0].membres.all():
+            raise Http404
     return render(request, 'comptes/occasions.html', {'occasions': occasions})
-
