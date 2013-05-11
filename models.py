@@ -5,6 +5,8 @@ from django.db.models import DecimalField, DateTimeField, SlugField
 from django.db.models import CharField, TextField, BooleanField, Sum
 from django.contrib.auth.models import User
 
+from decimal import Decimal
+
 
 class Occasion(Model):
     nom = CharField(max_length=50, unique=True)
@@ -37,7 +39,8 @@ class Occasion(Model):
             solde -= debits
         if credits:
             solde += credits
-        return round(solde, 2)  # Les soldes sont donnés à un centime près.
+
+        return Decimal(solde).quantize(Decimal('.01'))
 
 
 class Dette(Model):
