@@ -36,9 +36,9 @@ class Occasion(Model):
         if creances:
             solde += creances
         if debits:
-            solde -= debits
+            solde += debits
         if credits:
-            solde += credits
+            solde -= credits
 
         return Decimal(solde).quantize(Decimal('.01'))
 
