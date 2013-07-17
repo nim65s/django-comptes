@@ -14,10 +14,10 @@
     {% if occasion.clos %}<p>Clos</p>{% endif %}
     <h2>Soldes</h2>
     <table><tr><th>Membre</th><th>Solde</th></tr>
-    {% for solde, membre in occasion.solde_des_membres %}<tr class="{% cycle 'tr1' 'tr2' %}">
+    {% for solde, membre in occasion.solde_des_membres %}{% if solde != 0 %}<tr class="{% cycle 'tr1' 'tr2' %}">
         <td>{{ membre }}</td>
         <td class="euro">{{ solde }}</td>
-    </tr>{% empty %}<tr><td colspan="2">Pas de membres pour l’instant…</td></tr>{% endfor %}
+    </tr>{% endif %}{% empty %}<tr><td colspan="2">Pas de membres pour l’instant…</td></tr>{% endfor %}
     </table>
     <h2>Dettes</h2>
     <table><tr><th>Créancier</th><th>Montant</th><th>Débiteurs</th><th>Moment</th><th>Description</th></tr>
