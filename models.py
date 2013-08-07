@@ -8,11 +8,20 @@ from django.contrib.auth.models import User
 from decimal import Decimal
 
 
+class Couple(Model):
+    mari = ForeignKey(User, related_name="mari")
+    femme = ForeignKey(User, related_name="femme")
+
+    def __unicode__(self):
+        return u"%s & %s" % (self.mari, self.femme)
+
+
 class Occasion(Model):
     nom = CharField(max_length=50, unique=True)
     slug = SlugField(unique=True)
     description = TextField()
     membres = ManyToManyField(User)
+    couples_membres = ManyToManyField(Couple, blank=True)
     debut = DateTimeField()
     fin = DateTimeField()
     clos = BooleanField(default=False)
@@ -21,7 +30,10 @@ class Occasion(Model):
         return u"Occasion: %s" % self.nom
 
     def solde_des_membres(self):
-        return sorted([(self.solde(membre), membre) for membre in self.membres.all()], reverse=True)
+        liste_couples = [(self.solde(couple.mari) + self.solde(couple.femme), couple) for couple in self.couples_membres.all()]
+        liste_membres = [(self.solde(m), m) if not m.mari.all() and not m.femme.all() else None for m in self.membres.all()]
+        while None in liste_membres: liste_membres.remove(None)
+        return sorted(liste_couples + liste_membres, reverse=True)
 
     def solde(self, membre):
         solde = 0
