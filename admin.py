@@ -1,9 +1,21 @@
 #-*- coding: utf-8 -*-
 
-from django.contrib import admin
+from django.contrib.admin import site, ModelAdmin
 from models import *
 
-admin.site.register(Occasion)
-admin.site.register(Dette)
-admin.site.register(Remboursement)
-admin.site.register(Couple)
+
+class DetteAdmin(ModelAdmin):
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "debiteurs":
+            kwargs['queryset'] = User.objects.filter(occasion__clos=False)
+        return super(DetteAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "creancier":
+            kwargs['queryset'] = User.objects.filter(occasion__clos=False)
+        return super(DetteAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+site.register(Occasion)
+site.register(Dette, DetteAdmin)
+site.register(Remboursement)
+site.register(Couple)
