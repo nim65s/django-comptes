@@ -10,12 +10,12 @@ class DetteAdmin(ModelAdmin):
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "debiteurs":
-            kwargs['queryset'] = User.objects.filter(occasion__clos=False)
+            kwargs['queryset'] = User.objects.filter(occasion__clos=False).distinct()
         return super(DetteAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "creancier":
-            kwargs['queryset'] = User.objects.filter(occasion__clos=False)
+            kwargs['queryset'] = User.objects.filter(occasion__clos=False).distinct()
         if db_field.name == "occasion":
             kwargs['queryset'] = Occasion.objects.filter(clos=False)
             if len(kwargs['queryset']) == 1:
