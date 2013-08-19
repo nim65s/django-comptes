@@ -36,5 +36,5 @@ class RemboursementAdmin(ModelAdmin):
 
 site.register(Occasion)
 site.register(Dette, DetteAdmin)
-site.register(Remboursement)
+site.register(Remboursement, RemboursementAdmin)
 site.register(Couple)
