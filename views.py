@@ -14,4 +14,4 @@ def home(request, slug=None):
         occasions = [get_object_or_404(Occasion, slug=slug)]
         if request.user not in occasions[0].membres.all():
             raise Http404
-    return render(request, 'comptes/occasions.html', {'occasions': occasions})
+    return render(request, 'comptes/comptes.html', {'occasions': occasions})
