@@ -32,12 +32,13 @@ class Occasion(Model):
     def solde_des_membres(self):
         liste_couples = [(self.solde(couple.mari) + self.solde(couple.femme), couple) for couple in self.couples_membres.all()]
         liste_membres = [(self.solde(m), m) if not m.mari.all() and not m.femme.all() else None for m in self.membres.all()]
-        while None in liste_membres: liste_membres.remove(None)
+        while None in liste_membres:
+            liste_membres.remove(None)
         return sorted(liste_couples + liste_membres, reverse=True)
 
     def solde(self, membre):
         solde = 0
-        dettes = sum([d.montant/len(d.debiteurs.all()) for d in membre.dettes.filter(occasion=self)])
+        dettes = sum([d.montant / len(d.debiteurs.all()) for d in membre.dettes.filter(occasion=self)])
         creances = self.dette_set.filter(creancier=membre).aggregate(s=Sum('montant'))['s']
         debits = membre.debits.filter(occasion=self).aggregate(s=Sum('montant'))['s']
         credits = membre.credits.filter(occasion=self).aggregate(s=Sum('montant'))['s']
@@ -65,6 +66,7 @@ class Dette(Model):
 
     def __unicode__(self):
         return u"Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, len(self.debiteurs.all()), self.description)
+
     class Meta:
         ordering = ["moment"]
 

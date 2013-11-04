@@ -6,6 +6,7 @@ from django.http import Http404
 
 from comptes.models import Dette, Remboursement, Occasion
 
+
 @login_required
 def home(request, slug=None):
     if slug is None:
