@@ -1,11 +1,9 @@
 #-*- coding: utf-8 -*-
 
-from django.db.models import Model, ForeignKey, ManyToManyField
-from django.db.models import DecimalField, DateTimeField, SlugField
-from django.db.models import CharField, TextField, BooleanField, Sum
-from django.contrib.auth.models import User
-
 from decimal import Decimal
+
+from django.contrib.auth.models import User
+from django.db.models import BooleanField, CharField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField
 
 
 class Couple(Model):

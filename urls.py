@@ -1,8 +1,6 @@
+from comptes.views import *
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
-
-from comptes.views import *
-
 
 urlpatterns = patterns('',
     url(r'^$', home, name='home'),

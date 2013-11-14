@@ -1,10 +1,9 @@
 #-*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
+from comptes.models import Dette, Occasion, Remboursement
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404
-
-from comptes.models import Dette, Remboursement, Occasion
+from django.shortcuts import get_object_or_404, render
 
 
 @login_required
