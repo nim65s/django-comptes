@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+# TODO: revoir la gestion des couples, avec plutôt un autoéquilibre si un est >0 et l’autre <0
 
 from decimal import Decimal
 
@@ -30,6 +31,7 @@ class Occasion(Model):
     def solde_des_membres(self):
         liste_couples = [(self.solde(couple.mari) + self.solde(couple.femme), couple) for couple in self.couples_membres.all()]
         liste_membres = [(self.solde(m), m) if not m.mari.all() and not m.femme.all() else None for m in self.membres.all()]
+        # TODO: si y’a qu’un membre du couple, ça le fait pas
         while None in liste_membres:
             liste_membres.remove(None)
         return sorted(liste_couples + liste_membres, reverse=True)
