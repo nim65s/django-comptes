@@ -1,20 +1,25 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # TODO: revoir la gestion des couples, avec plutôt un autoéquilibre si un est >0 et l’autre <0
+
+from __future__ import unicode_literals
 
 from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.db.models import BooleanField, CharField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Couple(Model):
     mari = ForeignKey(User, related_name="mari")
     femme = ForeignKey(User, related_name="femme")
 
-    def __unicode__(self):
-        return u"%s & %s" % (self.mari, self.femme)
+    def __str__(self):
+        return "%s & %s" % (self.mari, self.femme)
 
 
+@python_2_unicode_compatible
 class Occasion(Model):
     nom = CharField(max_length=50, unique=True)
     slug = SlugField(unique=True)
@@ -25,8 +30,8 @@ class Occasion(Model):
     fin = DateTimeField()
     clos = BooleanField(default=False)
 
-    def __unicode__(self):
-        return u"Occasion: %s" % self.nom
+    def __str__(self):
+        return "Occasion: %s" % self.nom
 
     def solde_des_membres(self):
         liste_couples = [(self.solde(couple.mari) + self.solde(couple.femme), couple) for couple in self.couples_membres.all()]
@@ -42,8 +47,8 @@ class Occasion(Model):
         creances = self.dette_set.filter(creancier=membre).aggregate(s=Sum('montant'))['s']
         debits = membre.debits.filter(occasion=self).aggregate(s=Sum('montant'))['s']
         credits = membre.credits.filter(occasion=self).aggregate(s=Sum('montant'))['s']
-        #debits2 = self.remboursement_set.filter(crediteur=membre).aggregate(s=Sum('montant'))['s']
-        #credits2 = self.remboursement_set.filter(credite=membre).aggregate(s=Sum('montant'))['s']
+        # debits2 = self.remboursement_set.filter(crediteur=membre).aggregate(s=Sum('montant'))['s']
+        # credits2 = self.remboursement_set.filter(credite=membre).aggregate(s=Sum('montant'))['s']
         if dettes:
             solde -= dettes
         if creances:
@@ -56,6 +61,7 @@ class Occasion(Model):
         return Decimal(solde).quantize(Decimal('.01'))
 
 
+@python_2_unicode_compatible
 class Dette(Model):
     creancier = ForeignKey(User, related_name='creances')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
@@ -64,13 +70,14 @@ class Dette(Model):
     moment = DateTimeField()
     occasion = ForeignKey(Occasion)
 
-    def __unicode__(self):
-        return u"Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, len(self.debiteurs.all()), self.description)
+    def __str__(self):
+        return "Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, len(self.debiteurs.all()), self.description)
 
     class Meta:
         ordering = ["moment"]
 
 
+@python_2_unicode_compatible
 class Remboursement(Model):
     crediteur = ForeignKey(User, related_name='debits')
     credite = ForeignKey(User, related_name='credits')
@@ -78,8 +85,8 @@ class Remboursement(Model):
     moment = DateTimeField()
     occasion = ForeignKey(Occasion, null=True)
 
-    def __unicode__(self):
-        return u"%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
+    def __str__(self):
+        return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
 
     class Meta:
         ordering = ["moment"]

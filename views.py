@@ -1,4 +1,7 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from comptes.models import Dette, Occasion, Remboursement
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User

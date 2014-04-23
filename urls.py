@@ -1,3 +1,7 @@
+# -*- coding: utf-8
+
+from __future__ import unicode_literals
+
 from comptes.views import *
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
