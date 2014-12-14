@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from comptes.views import *
+from comptes.views import home
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 

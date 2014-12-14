@@ -2,9 +2,8 @@
 
 from __future__ import unicode_literals
 
-from comptes.models import Dette, Occasion, Remboursement
+from comptes.models import Occasion
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 

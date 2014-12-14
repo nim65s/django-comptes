@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.admin import HORIZONTAL, ModelAdmin, site
-from models import *
+from models import Couple, Dette, Occasion, Remboursement, User
 
 
 class DetteAdmin(ModelAdmin):
