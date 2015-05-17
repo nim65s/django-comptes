@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# TODO: revoir la gestion des couples, avec plutôt un autoéquilibre si un est >0 et l’autre <0
 
 from __future__ import unicode_literals
 
@@ -11,21 +10,11 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible
-class Couple(Model):
-    mari = ForeignKey(User, related_name="mari")
-    femme = ForeignKey(User, related_name="femme")
-
-    def __str__(self):
-        return "%s & %s" % (self.mari, self.femme)
-
-
-@python_2_unicode_compatible
 class Occasion(Model):
     nom = CharField(max_length=50, unique=True)
     slug = SlugField(unique=True)
     description = TextField()
     membres = ManyToManyField(User)
-    couples_membres = ManyToManyField(Couple, blank=True)
     debut = DateTimeField()
     fin = DateTimeField()
     clos = BooleanField(default=False)
@@ -34,12 +23,7 @@ class Occasion(Model):
         return "Occasion: %s" % self.nom
 
     def solde_des_membres(self):
-        liste_couples = [(self.solde(couple.mari) + self.solde(couple.femme), couple) for couple in self.couples_membres.all()]
-        liste_membres = [(self.solde(m), m) if not m.mari.all() and not m.femme.all() else None for m in self.membres.all()]
-        # TODO: si y’a qu’un membre du couple, ça le fait pas
-        while None in liste_membres:
-            liste_membres.remove(None)
-        return sorted(liste_couples + liste_membres, reverse=True)
+        return [(self.solde(m), m) for m in self.membres.all()]
 
     def solde(self, membre):
         solde = 0

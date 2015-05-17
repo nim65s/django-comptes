@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.admin import HORIZONTAL, ModelAdmin, site
-from models import Couple, Dette, Occasion, Remboursement, User
+from .models import Dette, Occasion, Remboursement, User
 
 
 class DetteAdmin(ModelAdmin):
@@ -39,4 +39,3 @@ class RemboursementAdmin(ModelAdmin):
 site.register(Occasion)
 site.register(Dette, DetteAdmin)
 site.register(Remboursement, RemboursementAdmin)
-site.register(Couple)
