@@ -23,7 +23,7 @@ class Occasion(Model):
         return "Occasion: %s" % self.nom
 
     def solde_des_membres(self):
-        return [(self.solde(m), m) for m in self.membres.all()]
+        return sorted([(self.solde(m), m) for m in self.membres.all()], reverse=True)
 
     def solde(self, membre):
         solde = 0
