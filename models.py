@@ -58,7 +58,7 @@ class Dette(Model):
         return "Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, len(self.debiteurs.all()), self.description)
 
     class Meta:
-        ordering = ["moment"]
+        ordering = ["-moment"]
 
 
 @python_2_unicode_compatible
@@ -73,4 +73,4 @@ class Remboursement(Model):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
 
     class Meta:
-        ordering = ["moment"]
+        ordering = ["-moment"]
