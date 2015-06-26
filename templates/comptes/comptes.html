@@ -22,6 +22,7 @@
     {% empty %}<tr><td colspan="2">Pas de membres pour l’instant…</td></tr>{% endfor %}
     </table>
     <h2>Dettes</h2>
+    {% if request.user.is_staff %}<a href="{% url 'admin:comptes_dette_add' %}">En ajouter une</a>{% endif %}
     <table class="table table-striped"><tr><th>Créancier</th><th class="right">Montant</th><th>Débiteurs</th><th class="right">Moment</th><th>Description</th></tr>
     {% for dette in occasion.dette_set.all %}<tr>
         <td>{{ dette.creancier }}</td>
@@ -32,6 +33,7 @@
     </tr>{% empty %}<tr><td colspan="5">Pas de dettes pour l’instant…</td><tr>{% endfor %}
     </table>
     <h2>Remboursements</h2>
+    {% if request.user.is_staff %}<a href="{% url 'admin:comptes_remboursement_add' %}">En ajouter un</a>{% endif %}
     <table class="table table-striped"><tr><th>Créditeur</th><th>Crédité</th><th class="right">Montant</th><th class="right">Moment</th></tr>
     {% for remboursement in occasion.remboursement_set.all %}<tr>
         <td>{{ remboursement.crediteur }}</td>
