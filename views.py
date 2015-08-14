@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
-from .models import Occasion
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
+
+from .models import Occasion
 
 
 @login_required
