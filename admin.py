@@ -4,7 +4,7 @@ from .models import Dette, Occasion, Remboursement, User
 
 
 class DetteAdmin(ModelAdmin):
-
+    filter_horizontal = ('debiteurs',)
     radio_fields = {"occasion": HORIZONTAL}
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
