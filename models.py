@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db.models import BooleanField, CharField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField
 
 
@@ -8,13 +9,16 @@ class Occasion(Model):
     nom = CharField(max_length=50, unique=True)
     slug = SlugField(unique=True)
     description = TextField()
-    membres = ManyToManyField(User)
+    membres = ManyToManyField(User, blank=True)
     debut = DateTimeField()
     fin = DateTimeField()
     clos = BooleanField(default=False)
 
     def __str__(self):
         return "Occasion: %s" % self.nom
+
+    def get_absolute_url(self):
+        return reverse('comptes:occasion', kwargs={'slug': self.slug})
 
     def get_membres(self):
         return self.membres.all() if self.membres.exists() else User.objects.all()
