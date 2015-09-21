@@ -16,8 +16,11 @@ class Occasion(Model):
     def __str__(self):
         return "Occasion: %s" % self.nom
 
+    def get_membres(self):
+        return self.membres.all() if self.membres.exists() else User.objects.all()
+
     def solde_des_membres(self):
-        return sorted([(self.solde(m), m) for m in self.membres.all()], key=lambda x: x[0], reverse=True)
+        return sorted([(self.solde(m), m) for m in self.get_membres()], key=lambda x: x[0], reverse=True)
 
     def solde(self, membre):
         solde = 0

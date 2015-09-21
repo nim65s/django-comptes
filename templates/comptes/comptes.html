@@ -11,7 +11,7 @@
 <h2>{{ occasion.nom }}{% if occasions|length > 1 %} (<a href="{% url 'comptes:occasion' occasion.slug %}">ne voir que celle-ci</a>){% endif %}</h2>
     <p>{{ occasion.description }}</p>
     <dl>
-        <dd>Membres</dd><dp><ul>{% for membre in occasion.membres.all %}<li>{{ membre }}</li>{% endfor %}</ul></dp>
+        <dd>Membres</dd><dp><ul>{% for membre in occasion.get_membres %}<li>{{ membre }}</li>{% endfor %}</ul></dp>
         <dd>Début</dd><dp>{{ occasion.debut }}</dp>
         <dd>Fin</dd><dp>{{ occasion.fin }}</dp>
     </dl>
