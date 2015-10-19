@@ -26,6 +26,9 @@ class Occasion(Model):
     def solde_des_membres(self):
         return sorted([(self.solde(m), m) for m in self.get_membres()], key=lambda x: x[0], reverse=True)
 
+    def depenses(self):
+        return self.dette_set.aggregate(s=Sum('montant'))['s']
+
     def solde(self, membre):
         solde = 0
         dettes = sum([d.montant / len(d.debiteurs.all()) for d in membre.dettes.filter(occasion=self)])
