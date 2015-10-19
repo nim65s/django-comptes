@@ -27,7 +27,7 @@
         <td class="right">{{ dette.moment }}</td>
         <td>{{ dette.description }}</td>
     </tr>{% empty %}<tr><td colspan="5">Pas de dettes pour l’instant…</td><tr>{% endfor %}
-    <tr><th>Total</th><th>{{ occasion.depenses }}</th></tr>
+    <tr><th>Total</th><th class="euro">{{ occasion.depenses }}</th></tr>
     </table>
     <h2>Remboursements</h2>
     {% if request.user.is_staff %}<a href="{% url 'admin:comptes_remboursement_add' %}">En ajouter un</a>{% endif %}
