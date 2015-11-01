@@ -18,7 +18,7 @@
     {% empty %}<tr><td colspan="2">Pas de membres pour l’instant…</td></tr>{% endfor %}
     </table>
     <h2>Dettes</h2>
-    {% if request.user.is_staff %}<a href="{% url 'admin:comptes_dette_add' %}">En ajouter une</a>{% endif %}
+    <a href="{% url 'comptes:dette' oc_slug=occasion.slug %}">En ajouter une</a>
     <table class="table table-striped"><tr><th>Créancier</th><th class="right">Montant</th><th>Débiteurs</th><th class="right">Moment</th><th>Description</th></tr>
     {% for dette in occasion.dette_set.all %}<tr>
         <td>{{ dette.creancier }}</td>
