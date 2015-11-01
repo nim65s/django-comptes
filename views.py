@@ -24,7 +24,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def test_func(self, user):
         self.occasion = get_object_or_404(Occasion, slug=self.kwargs['oc_slug'])
         self.scribe = user
-        return not self.occasion.membres.exists() or user in self.occasion.membres.all()
+        return not self.occasion.membres.exists() or user in self.occasion.membres.order_by('username').all()
 
     def get_form(self, form_class=None):
         form = super(DetteOrRemboursementCreateView, self).get_form(form_class)
