@@ -60,6 +60,9 @@ class Dette(Model):
     def __str__(self):
         return "Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, self.debiteurs.count(), self.description)
 
+    def get_absolute_url(self):
+        return self.occasion.get_absolute_url()
+
     class Meta:
         ordering = ["-moment"]
 
