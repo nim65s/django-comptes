@@ -6,6 +6,7 @@ from .models import Dette, Occasion, Remboursement, User
 class DetteAdmin(ModelAdmin):
     filter_horizontal = ('debiteurs',)
     radio_fields = {"occasion": HORIZONTAL}
+    readonly_fields = ('scribe',)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "debiteurs" and not Occasion.objects.filter(membres__isnull=True).exists():
@@ -22,8 +23,8 @@ class DetteAdmin(ModelAdmin):
 
 
 class RemboursementAdmin(ModelAdmin):
-
     radio_fields = {"occasion": HORIZONTAL}
+    readonly_fields = ('scribe',)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name in ["crediteur", "credite"] and not Occasion.objects.filter(membres__isnull=True).exists():

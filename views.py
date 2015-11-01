@@ -23,6 +23,7 @@ def home(request, slug=None):
 class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def test_func(self, user):
         self.occasion = get_object_or_404(Occasion, slug=self.kwargs['oc_slug'])
+        self.scribe = user
         return not self.occasion.membres.exists() or user in self.occasion.membres.all()
 
     def get_form(self, form_class=None):
@@ -33,6 +34,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.occasion = self.occasion
+        form.instance.scribe = self.scribe
         return super(DetteOrRemboursementCreateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
