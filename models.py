@@ -81,5 +81,8 @@ class Remboursement(Model):
     def __str__(self):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
 
+    def get_absolute_url(self):
+        return self.occasion.get_absolute_url()
+
     class Meta:
         ordering = ["-date", "-time"]
