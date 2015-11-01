@@ -74,11 +74,12 @@ class Remboursement(Model):
     crediteur = ForeignKey(User, related_name='debits')
     credite = ForeignKey(User, related_name='credits')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
-    moment = DateTimeField()
+    date = DateField()
+    time = TimeField('heure')
     occasion = ForeignKey(Occasion, null=True)
 
     def __str__(self):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
 
     class Meta:
-        ordering = ["-moment"]
+        ordering = ["-date", "-time"]
