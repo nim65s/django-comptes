@@ -22,7 +22,7 @@ def home(request, slug=None):
 
 class DetteCreateView(UserPassesTestMixin, CreateView):
     model = Dette
-    fields = ['creancier', 'montant', 'debiteurs', 'description', 'moment']
+    fields = ['creancier', 'montant', 'debiteurs', 'description', 'date', 'time']
 
     def test_func(self, user):
         self.occasion = get_object_or_404(Occasion, slug=self.kwargs['oc_slug'])

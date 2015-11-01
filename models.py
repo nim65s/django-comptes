@@ -1,8 +1,10 @@
+from datetime import time
 from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import BooleanField, CharField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField
+from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField,
+                              TimeField)
 
 
 class Occasion(Model):
@@ -54,7 +56,8 @@ class Dette(Model):
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     debiteurs = ManyToManyField(User, related_name='dettes')
     description = TextField()
-    moment = DateTimeField()
+    date = DateField()
+    time = TimeField('heure', default=time(12))
     occasion = ForeignKey(Occasion)
 
     def __str__(self):
@@ -64,7 +67,7 @@ class Dette(Model):
         return self.occasion.get_absolute_url()
 
     class Meta:
-        ordering = ["-moment"]
+        ordering = ["-date", "-time"]
 
 
 class Remboursement(Model):
