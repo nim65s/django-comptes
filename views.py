@@ -26,7 +26,7 @@ class DetteCreateView(UserPassesTestMixin, CreateView):
 
     def test_func(self, user):
         self.occasion = get_object_or_404(Occasion, slug=self.kwargs['oc_slug'])
-        return not self.occasion.membres.exists() is None or user in self.occasion.membres.all()
+        return not self.occasion.membres.exists() or user in self.occasion.membres.all()
 
     def get_form(self, form_class=None):
         form = super(DetteCreateView, self).get_form(form_class)
@@ -37,3 +37,8 @@ class DetteCreateView(UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         form.instance.occasion = self.occasion
         return super(DetteCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(DetteCreateView, self).get_context_data(**kwargs)
+        ctx['occasion'] = self.occasion
+        return ctx
