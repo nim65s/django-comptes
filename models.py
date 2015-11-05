@@ -60,6 +60,8 @@ class Dette(Model):
     time = TimeField('heure', default=time(12))
     occasion = ForeignKey(Occasion)
     scribe = ForeignKey(User, related_name='+', null=True)
+    cree = DateTimeField(auto_now_add=True)
+    modifie = DateTimeField(auto_now=True)
 
     def __str__(self):
         return "Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, self.debiteurs.count(), self.description)
@@ -79,6 +81,8 @@ class Remboursement(Model):
     time = TimeField('heure')
     occasion = ForeignKey(Occasion, null=True)
     scribe = ForeignKey(User, related_name='+', null=True)
+    cree = DateTimeField(auto_now_add=True)
+    modifie = DateTimeField(auto_now=True)
 
     def __str__(self):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
