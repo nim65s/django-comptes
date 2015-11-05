@@ -42,6 +42,11 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
         ctx['occasion'] = self.occasion
         return ctx
 
+    def get_success_url(self):
+        if 'add_another' in self.request.POST:
+            return self.request.path
+        return super(DetteOrRemboursementCreateView, self).get_success_url()
+
 
 class DetteCreateView(DetteOrRemboursementCreateView):
     model = Dette
