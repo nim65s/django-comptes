@@ -28,8 +28,9 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
 
     def get_form(self, form_class=None):
         form = super(DetteOrRemboursementCreateView, self).get_form(form_class)
-        for membres in self.fields[:2]:
-            form.fields[membres].queryset = self.occasion.membres.all()
+        if self.occasion.membres.exists():
+            for membres in self.fields[:2]:
+                form.fields[membres].queryset = self.occasion.membres.all()
         return form
 
     def form_valid(self, form):
