@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 
-{% block maincontent %}
+{% block content %}
 <h1>Ajouter une Dette pour {{ occasion.nom }}</h1>
 <form method="post" action="" class="form-horizontal" role="form">
     {% csrf_token %}
