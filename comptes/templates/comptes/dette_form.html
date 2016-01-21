@@ -4,18 +4,18 @@
 {% block content %}
 <h1>Ajouter une Dette pour {{ occasion.nom }}</h1>
 <form method="post" action="" class="form-horizontal" role="form">
-    {% csrf_token %}
-    {% bootstrap_form form layout="horizontal" %}
-    {% buttons layout="horizontal" %}
-        <button type="submit" class="btn btn-primary">Ok !</button>
-        <button type="submit" class="btn" name="add_another">En ajouter un autre !</button>
-    {% endbuttons %}
+  {% csrf_token %}
+  {% bootstrap_form form layout="horizontal" %}
+  {% buttons layout="horizontal" %}
+  <button type="submit" class="btn btn-primary">Ok !</button>
+  <button type="submit" class="btn" name="add_another">En ajouter un autre !</button>
+  {% endbuttons %}
 </form>
 {% endblock %}
 
 {% block js %}
 <script>
-    $('#id_date').attr({type: 'date'});
-    $('#id_time').attr({type: 'time'});
+$('#id_date').attr({type: 'date'});
+$('#id_time').attr({type: 'time'});
 </script>
 {% endblock %}

@@ -3,8 +3,8 @@ from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField, ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField,
-                              TimeField)
+from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
+                              ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField, TimeField)
 
 
 class Occasion(Model):
@@ -64,7 +64,8 @@ class Dette(Model):
     modifie = DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "Dette: %s a payé %.2f à %i personnes pour «%s»" % (self.creancier, self.montant, self.debiteurs.count(), self.description)
+        fmt = "Dette: %s a payé %.2f à %i personnes pour «%s»"
+        return fmt % (self.creancier, self.montant, self.debiteurs.count(), self.description)
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()

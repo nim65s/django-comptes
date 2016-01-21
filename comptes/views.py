@@ -1,10 +1,10 @@
-from braces.views import UserPassesTestMixin
-
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView
+
+from braces.views import UserPassesTestMixin
 
 from .models import Dette, Occasion, Remboursement
 
