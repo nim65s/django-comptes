@@ -13,7 +13,7 @@ setup(
     version='0.1.3',
     packages=['comptes'],
     install_requires=[
-        'Django',
+        'Django>=1.9',
         'django-bootstrap3',
     ],
     include_package_data=True,
