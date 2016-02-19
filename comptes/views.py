@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView
 
@@ -15,7 +15,7 @@ def home(request, slug=None):
     else:
         occasions = [get_object_or_404(Occasion, slug=slug)]
         if request.user not in occasions[0].get_membres():
-            raise Http404
+            raise PermissionDenied
     return render(request, 'comptes/comptes.html', {'occasions': occasions})
 
 
