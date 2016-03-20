@@ -68,6 +68,9 @@ class Dette(Model):
     cree = DateTimeField(auto_now_add=True)
     modifie = DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-date", "-time"]
+
     def __str__(self):
         fmt = "Dette: %s a payé %.2f à %i personnes pour «%s»"
         return fmt % (self.creancier, self.montant, self.debiteurs.count(), self.description)
@@ -75,8 +78,8 @@ class Dette(Model):
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
 
-    class Meta:
-        ordering = ["-date", "-time"]
+    def debiteurs_list(self):
+        return ', '.join('%s' % debiteur for debiteur in self.debiteurs.all())
 
 
 class Remboursement(Model):
@@ -90,11 +93,11 @@ class Remboursement(Model):
     cree = DateTimeField(auto_now_add=True)
     modifie = DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-date", "-time"]
+
     def __str__(self):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
-
-    class Meta:
-        ordering = ["-date", "-time"]

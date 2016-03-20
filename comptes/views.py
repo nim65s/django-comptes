@@ -1,8 +1,12 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.template.loader import get_template
 from django.views.generic import CreateView
 
 from .models import Dette, Occasion, Remboursement
@@ -34,7 +38,22 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         form.instance.occasion = self.occasion
         form.instance.scribe = self.request.user
-        return super(DetteOrRemboursementCreateView, self).form_valid(form)
+        self.object = form.save()
+        model = self.model.__name__
+        ctx = {'object': self.object}
+        subject = '%s ajouté' % model
+        if model == 'Remboursement':
+            emails = [self.object.crediteur.email, self.object.credite.email]
+        else:
+            emails = [user.email for user in self.object.debiteurs.all()]
+            if self.object.creancier.email not in emails:
+                emails.append(self.object.creancier.email)
+            subject += 'e'
+        text, html = (get_template('comptes/mail_%s.%s' % (model.lower(), alt)).render(ctx) for alt in ['txt', 'html'])
+        msg = EmailMultiAlternatives(subject, text, settings.DEFAULT_FROM_EMAIL, emails)
+        msg.attach_alternative(html, 'text/html')
+        msg.send()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         ctx = super(DetteOrRemboursementCreateView, self).get_context_data(**kwargs)

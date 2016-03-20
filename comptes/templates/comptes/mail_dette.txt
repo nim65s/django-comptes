@@ -1,0 +1,18 @@
+Hello :)
+
+{% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a
+ajouté la Dette suivante:
+
+- *Créancier*:     {{ object.creancier }}
+- *Montant total*: {{ object.montant|floatformat:2 }} €
+- *Débiteurs*:     {{ object.debiteurs_list }}
+- *Date*:          Le {{ object.date }} à {{ object.time }}
+- *Description*:   {{ object.description }}
+
+Plus d’infos directement sur le site: https://saurel.me{{ object.get_absolute_url }}
+
+@+ !
+
+
+--
+  Cet email a été envoyé automatiquement. Il est inutile d’y répondre.

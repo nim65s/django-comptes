@@ -1,0 +1,19 @@
+<html>
+  <head></head>
+  <body>
+    <p>Hello :)</p>
+    <p>
+    {% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a ajouté la Dette suivante:
+    </p>
+    <dl>
+      <dt>Créancier:</dt><dd>{{ object.creancier }}</dd>
+      <dt>Montant total:</dt><dd>{{ object.montant|floatformat:2 }} €</dd>
+      <dt>Débiteurs:</dt><dd>{{ object.debiteurs_list }}</dd>
+      <dt>Date:</dt><dd>Le {{ object.date }} à {{ object.time }}</dd>
+      <dt>Description:</dt><dd>{{ object.description }}</dd>
+    </dl>
+    <p>Plus d’infos <a href="https://saurel.me{{ object.get_absolute_url }}">directement sur le site</a></p>
+    <p>@+ !</p>
+    <footer>Cet email a été envoyé automatiquement. Il est inutile d’y répondre.</footer>
+  </body>
+</html>
