@@ -5,3 +5,5 @@ install:
     - pip install -r test_requirements.txt
 script:
     - coverage run project_for_tests/manage.py test
+after_success:
+    - coveralls
