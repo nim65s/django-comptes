@@ -1,5 +1,8 @@
 Comptes
 =======
+[![Build Status](https://travis-ci.org/nim65s/django-comptes.svg?branch=master)](https://travis-ci.org/nim65s/django-comptes)
+[![Coverage Status](https://coveralls.io/repos/github/nim65s/django-comptes/badge.svg?branch=master)](https://coveralls.io/github/nim65s/django-comptes?branch=master)
+
 
 But
 ---
