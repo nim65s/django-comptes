@@ -42,11 +42,15 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
         model = self.model.__name__
         ctx = {'object': self.object}
         subject = '%s ajouté' % model
+        emails = []
         if model == 'Remboursement':
-            emails = [self.object.crediteur.email, self.object.credite.email]
+            if self.object.crediteur.email:
+                emails.append(self.object.crediteur.email)
+            if self.object.credite.email:
+                emails.append(self.object.credite.email)
         else:
-            emails = [user.email for user in self.object.debiteurs.all()]
-            if self.object.creancier.email not in emails:
+            emails = [user.email for user in self.object.debiteurs.all() if user.email]
+            if self.object.creancier.email and self.object.creancier.email not in emails:
                 emails.append(self.object.creancier.email)
             subject += 'e'
         text, html = (get_template('comptes/mail_%s.%s' % (model.lower(), alt)).render(ctx) for alt in ['txt', 'html'])
