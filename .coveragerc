@@ -1,3 +1,0 @@
-[run]
-source = comptes
-omit = comptes/migrations/*
