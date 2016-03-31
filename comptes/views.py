@@ -39,6 +39,11 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
         form.instance.occasion = self.occasion
         form.instance.scribe = self.request.user
         self.object = form.save()
+        if not settings.DEBUG:
+            self.send_mail()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def send_mail(self):
         model = self.model.__name__
         ctx = {'object': self.object}
         subject = '%s ajouté' % model
@@ -57,7 +62,6 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
         msg = EmailMultiAlternatives(subject, text, settings.DEFAULT_FROM_EMAIL, emails)
         msg.attach_alternative(html, 'text/html')
         msg.send()
-        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         ctx = super(DetteOrRemboursementCreateView, self).get_context_data(**kwargs)

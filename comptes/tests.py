@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, time, timedelta
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -91,3 +91,37 @@ class ComptesTests(TestCase):
         self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 200)
         self.client.login(username='c', password='c')
         self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 302)
+
+    def test_create_dette(self):
+        self.client.login(username='a', password='a')
+
+        dette_data = {
+            'creancier': 1,
+            'debiteurs': [2],
+            'montant': 20,
+            'description': 'test',
+            'date': date(1990, 6, 14),
+            'time': time(4, 2),
+        }
+        r = self.client.post(reverse('comptes:dette', kwargs={'oc_slug': 'p'}), dette_data)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, '/comptes/p')
+
+        dette_data['add_another'] = 1
+        r = self.client.post(reverse('comptes:dette', kwargs={'oc_slug': 'p'}), dette_data)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, '/comptes/p/dette')
+
+    def test_create_remboursement(self):
+        self.client.login(username='a', password='a')
+
+        dette_data = {
+            'crediteur': 2,
+            'credite': 3,
+            'montant': 20,
+            'date': date(1990, 6, 14),
+            'time': time(4, 2),
+        }
+        r = self.client.post(reverse('comptes:remboursement', kwargs={'oc_slug': 'o'}), dette_data)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, '/comptes/o')
