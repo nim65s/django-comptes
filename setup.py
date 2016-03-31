@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-comptes',
-    version='0.1.4',
+    version='1.0.0',
     packages=['comptes'],
     install_requires=[
         'Django>=1.9',
