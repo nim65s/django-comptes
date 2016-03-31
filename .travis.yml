@@ -2,8 +2,9 @@ language: python
 python:
     - 3.5
 install:
-    - pip install -r test_requirements.txt
+    - pip install -r requirements.txt
 script:
-    - coverage run project_for_tests/manage.py test
+    - coverage run manage.py test
+    - flake8 --max-line-length=119 .
 after_success:
     - coveralls
