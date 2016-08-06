@@ -2,7 +2,7 @@ language: python
 python:
     - 3.5
 install:
-    - pip install -r requirements.txt
+    - pip install -r requirements.txt flake8 python-coveralls
 script:
     - coverage run manage.py test
     - flake8 .

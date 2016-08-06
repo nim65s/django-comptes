@@ -4,16 +4,5 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-
-coverage==4.0.3           # via python-coveralls
 django-bootstrap3==7.0.1
 Django==1.9.6
-flake8==2.5.4
-mccabe==0.4.0             # via flake8
-pep8==1.7.0               # via flake8
-pyflakes==1.0.0           # via flake8
-python-coveralls==2.7.0
-PyYAML==3.11              # via python-coveralls
-requests==2.10.0          # via python-coveralls
-sh==1.11                  # via python-coveralls
-six==1.10.0               # via python-coveralls
