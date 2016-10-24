@@ -17,7 +17,7 @@ class Occasion(Model):
     slug = SlugField(unique=True)
     description = TextField()
     membres = ManyToManyField(User, blank=True)
-    debut = DateTimeField()
+    debut = DateTimeField('début')
     fin = DateTimeField()
     clos = BooleanField(default=False)
 
@@ -57,16 +57,16 @@ class Occasion(Model):
 
 
 class Dette(Model):
-    creancier = ForeignKey(User, related_name='creances')
+    creancier = ForeignKey(User, related_name='creances', verbose_name='créancier')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
-    debiteurs = ManyToManyField(User, related_name='dettes')
+    debiteurs = ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
     description = TextField()
     date = DateField()
     time = TimeField('heure', default=time(12))
     occasion = ForeignKey(Occasion)
     scribe = ForeignKey(User, related_name='+', null=True)
-    cree = DateTimeField(auto_now_add=True)
-    modifie = DateTimeField(auto_now=True)
+    cree = DateTimeField('créé', auto_now_add=True)
+    modifie = DateTimeField('modifié', auto_now=True)
 
     class Meta:
         ordering = ["-date", "-time"]
@@ -83,15 +83,15 @@ class Dette(Model):
 
 
 class Remboursement(Model):
-    crediteur = ForeignKey(User, related_name='debits')
-    credite = ForeignKey(User, related_name='credits')
+    crediteur = ForeignKey(User, related_name='debits', verbose_name='créditeur')
+    credite = ForeignKey(User, related_name='credits', verbose_name='crédité')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     date = DateField()
     time = TimeField('heure')
     occasion = ForeignKey(Occasion, null=True)
     scribe = ForeignKey(User, related_name='+', null=True)
-    cree = DateTimeField(auto_now_add=True)
-    modifie = DateTimeField(auto_now=True)
+    cree = DateTimeField('créé', auto_now_add=True)
+    modifie = DateTimeField('modifié', auto_now=True)
 
     class Meta:
         ordering = ["-date", "-time"]
