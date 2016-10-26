@@ -65,7 +65,14 @@ class ComptesTests(TestCase):
         self.assertEqual(str(Dette.objects.first()), 'Dette: a a payé 9.00 à 3 personnes pour «Lorem Ipsum»')
 
     def test_dette_debiteurs_list(self):
-        self.assertEqual(Dette.objects.first().debiteurs_list(), 'a, b, c')
+        dette = Dette.objects.first()
+        self.assertEqual(dette.debiteurs_list(), 'a, b & c')
+        dette.debiteurs.remove(User.objects.first())
+        dette.debiteurs.remove(User.objects.last())
+        self.assertEqual(dette.debiteurs_list(), 'b')
+
+    def test_dette_part(self):
+        self.assertEqual(Dette.objects.first().part(), 3)
 
     # Remboursement
 

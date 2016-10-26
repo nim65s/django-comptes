@@ -79,7 +79,14 @@ class Dette(Model):
         return self.occasion.get_absolute_url()
 
     def debiteurs_list(self):
-        return ', '.join('%s' % debiteur for debiteur in self.debiteurs.all())
+        # This method does not work when there are no debiteurs. Duh.
+        debiteurs = list(self.debiteurs.values_list('username', flat=True))
+        if len(debiteurs) == 1:
+            return debiteurs[0]
+        return ', '.join(debiteurs[:-1]) + ' & ' + debiteurs[-1]
+
+    def part(self):
+        return self.montant / self.debiteurs.count()
 
 
 class Remboursement(Model):
