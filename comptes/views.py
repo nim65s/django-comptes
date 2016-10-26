@@ -25,6 +25,8 @@ def home(request, slug=None):
 
 class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
         self.occasion = get_object_or_404(Occasion, slug=self.kwargs['oc_slug'])
         return not self.occasion.membres.exists() or self.request.user in self.occasion.membres.all()
 
