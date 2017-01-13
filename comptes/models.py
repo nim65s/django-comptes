@@ -2,6 +2,7 @@ from datetime import time
 from decimal import Decimal
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
                               ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField, TimeField)
@@ -26,6 +27,9 @@ class Occasion(Model):
 
     def get_absolute_url(self):
         return reverse('comptes:occasion', kwargs={'slug': self.slug})
+
+    def get_full_url(self):
+        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
 
     def get_membres(self):
         return self.membres.all() if self.membres.exists() else User.objects.all()

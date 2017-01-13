@@ -14,7 +14,7 @@
     </dl>
     <p>Cette dette augmente donc le solde de {{ object.creancier }} de {{ object.montant|floatformat:2 }} €,
     puis diminue celui de {{ object.debiteurs_list }} de {{ object.part|floatformat:2 }} €.</p>
-    <p>Plus d’infos <a href="https://saurel.me{{ object.get_absolute_url }}">directement sur le site</a></p>
+    <p>Plus d’infos <a href="{{ object.get_full_url }}">directement sur le site</a></p>
     <p>@+ !</p>
     <footer>Cet email a été envoyé automatiquement. Il est inutile d’y répondre.</footer>
   </body>

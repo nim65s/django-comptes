@@ -8,7 +8,7 @@ ajouté le Remboursement suivant:
 - *Crédité*:   {{ object.credite }}
 - *Date*:      Le {{ object.date }} à {{ object.time }}
 
-Plus d’infos directement sur le site: https://saurel.me{{ object.get_absolute_url }}
+Plus d’infos directement sur le site: {{ object.get_full_url }}
 
 @+ !
 

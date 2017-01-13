@@ -12,7 +12,7 @@ ajouté la Dette suivante:
 Cette dette augmente donc le solde de {{ object.creancier }} de {{ object.montant|floatformat:2 }} €,
 puis diminue celui de {{ object.debiteurs_list }} de {{ object.part|floatformat:2 }} €.
 
-Plus d’infos directement sur le site: https://saurel.me{{ object.get_absolute_url }}
+Plus d’infos directement sur le site: {{ object.get_full_url }}
 
 @+ !
 
