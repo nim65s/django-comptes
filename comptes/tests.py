@@ -120,8 +120,6 @@ class ComptesTests(TestCase):
         self.assertEqual(r.url, '/comptes/p/dette')
 
     def test_create_remboursement(self):
-        self.client.login(username='a', password='a')
-
         dette_data = {
             'crediteur': 2,
             'credite': 3,
@@ -129,6 +127,13 @@ class ComptesTests(TestCase):
             'date': date(1990, 6, 14),
             'time': time(4, 2),
         }
+
+        r = self.client.post(reverse('comptes:remboursement', kwargs={'oc_slug': 'o'}), dette_data)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, '/accounts/login/?next=/comptes/o/remboursement')
+
+        self.client.login(username='a', password='a')
+
         r = self.client.post(reverse('comptes:remboursement', kwargs={'oc_slug': 'o'}), dette_data)
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.url, '/comptes/o')
