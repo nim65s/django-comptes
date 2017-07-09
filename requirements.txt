@@ -4,5 +4,6 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-django-bootstrap3==7.1.0
-Django==1.10.4
+django-bootstrap3==8.2.3
+django==1.11.3
+pytz==2017.2              # via django
