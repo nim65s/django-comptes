@@ -82,6 +82,9 @@ class Dette(Model):
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
 
+    def get_full_url(self):
+        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
+
     def debiteurs_list(self):
         # This method does not work when there are no debiteurs. Duh.
         debiteurs = list(self.debiteurs.values_list('username', flat=True))
@@ -112,3 +115,6 @@ class Remboursement(Model):
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
+
+    def get_full_url(self):
+        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())

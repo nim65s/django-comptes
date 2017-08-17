@@ -1,7 +1,6 @@
 Hello :)
 
-{% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a
-ajouté la Dette suivante:
+{% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a ajouté la Dette suivante:
 
 - *Créancier*:     {{ object.creancier }}
 - *Montant total*: {{ object.montant|floatformat:2 }} €
