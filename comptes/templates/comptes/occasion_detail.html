@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Comptes{% endblock %}
+{% block title %}Comptes - {{ occasion.nom }}{% endblock %}
 
 {% block content %}
-{% if occasions|length > 1 %}<h1>Occasions</h1>{% endif %}
+<h1>{{ occasion.nom }}</h1>
 
-{% for occasion in occasions %}
-<h2>{{ occasion.nom }}{% if occasions|length > 1 %} (<a href="{% url 'comptes:occasion' occasion.slug %}">ne voir que celle-ci</a>){% endif %}</h2>
 <p>{{ occasion.description }}: du {{ occasion.debut }} au {{ occasion.fin }} {% if occasion.clos %}<p>Clos</p>{% endif %}</p>
 <h2>Soldes</h2>
 <table class="table table-striped"><tr><th>Membre</th><th class="right">Solde</th></tr>
@@ -37,6 +35,5 @@
     <td class="right">{{ remboursement.date }} {{ remboursement.time }}</td>
   </tr>{% endfor %}
 </table>
-{% endfor %}
 
 {% endblock %}

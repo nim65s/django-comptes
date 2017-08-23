@@ -35,7 +35,7 @@ class Occasion(Model):
         return self.membres.all() if self.membres.exists() else User.objects.all()
 
     def solde_des_membres(self):
-        return sorted([(self.solde(m), m) for m in self.get_membres()], key=lambda x: x[0], reverse=True)
+        return sorted([(self.solde(m), m) for m in self.get_membres()], key=lambda x: -x[0])
 
     def depenses(self):
         return query_sum(self.dette_set)

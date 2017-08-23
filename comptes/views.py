@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
@@ -16,11 +17,12 @@ from .models import Dette, Occasion, Remboursement
 def home(request, slug=None):
     if slug is None:
         occasions = Occasion.objects.filter(clos=False).filter(Q(membres__isnull=True) | Q(membres=request.user))
-    else:
-        occasions = [get_object_or_404(Occasion, slug=slug)]
-        if request.user not in occasions[0].get_membres():
-            raise PermissionDenied
-    return render(request, 'comptes/comptes.html', {'occasions': occasions})
+        soldes = sorted([(sum(o.solde(m) for o in occasions), m) for m in User.objects.all()], key=lambda x: -x[0])
+        return render(request, 'comptes/occasion_list.html', {'occasions': occasions, 'soldes': soldes})
+    occasion = get_object_or_404(Occasion, slug=slug)
+    if request.user not in occasion.get_membres():
+        raise PermissionDenied
+    return render(request, 'comptes/occasion_detail.html', {'occasion': occasion})
 
 
 class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Comptes{% endblock %}
+
+{% block content %}
+<h1>Occasions</h1>
+
+<ul>
+{% for occasion in occasions %}
+<li><a href="{{ occasion.get_full_url }}">{{ occasion.nom }}</a></li>
+{% endfor %}
+</li>
+
+<h2>Soldes globaux</h2>
+<table class="table table-striped"><tr><th>Membre</th><th class="right">Solde</th></tr>
+  {% for solde, membre in soldes %}{% if solde != 0 %}
+  <tr><td>{{ membre }}</td><td class="euro">{{ solde }}</td></tr>
+  {% endif %}
+  {% empty %}<tr><td colspan="2">Pas de membres pour l’instant…</td></tr>{% endfor %}
+</table>
+
+{% endblock %}
