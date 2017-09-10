@@ -2,18 +2,19 @@ from datetime import time
 from decimal import Decimal
 
 from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
                               ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField, TimeField)
 from django.db.models.functions import Coalesce
+
+from ndh.models import Links
 
 
 def query_sum(queryset, field='montant'):
     return queryset.aggregate(s=Coalesce(Sum(field), 0))['s']
 
 
-class Occasion(Model):
+class Occasion(Links, Model):
     nom = CharField(max_length=50, unique=True)
     slug = SlugField(unique=True)
     description = TextField()
@@ -27,9 +28,6 @@ class Occasion(Model):
 
     def get_absolute_url(self):
         return reverse('comptes:occasion', kwargs={'slug': self.slug})
-
-    def get_full_url(self):
-        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
 
     def get_membres(self):
         return self.membres.all() if self.membres.exists() else User.objects.all()
@@ -60,7 +58,7 @@ class Occasion(Model):
         return Decimal(solde).quantize(Decimal('.01'))
 
 
-class Dette(Model):
+class Dette(Links, Model):
     creancier = ForeignKey(User, related_name='creances', verbose_name='créancier')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     debiteurs = ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
@@ -82,9 +80,6 @@ class Dette(Model):
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
 
-    def get_full_url(self):
-        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
-
     def debiteurs_list(self):
         # This method does not work when there are no debiteurs. Duh.
         debiteurs = list(self.debiteurs.values_list('username', flat=True))
@@ -96,7 +91,7 @@ class Dette(Model):
         return self.montant / self.debiteurs.count()
 
 
-class Remboursement(Model):
+class Remboursement(Links, Model):
     crediteur = ForeignKey(User, related_name='debits', verbose_name='créditeur')
     credite = ForeignKey(User, related_name='credits', verbose_name='crédité')
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
@@ -115,6 +110,3 @@ class Remboursement(Model):
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
-
-    def get_full_url(self):
-        return 'https://%s%s' % (Site.objects.get_current().domain, self.get_absolute_url())
