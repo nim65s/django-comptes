@@ -38,7 +38,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
         if self.occasion.membres.exists():
             fields = self.fields or self.form_class.Meta.fields
             for membres in fields[:2]:
-                form.fields[membres].queryset = self.occasion.membres.all()
+                form.fields[membres].queryset = self.occasion.membres.order_by('username')
         return form
 
     def form_valid(self, form):
