@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template.loader import get_template
 from django.views.generic import CreateView
 
+from .forms import DetteForm
 from .models import Dette, Occasion, Remboursement
 
 
@@ -35,7 +36,8 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def get_form(self, form_class=None):
         form = super(DetteOrRemboursementCreateView, self).get_form(form_class)
         if self.occasion.membres.exists():
-            for membres in self.fields[:2]:
+            fields = self.fields or self.form_class.Meta.fields
+            for membres in fields[:2]:
                 form.fields[membres].queryset = self.occasion.membres.all()
         return form
 
@@ -80,7 +82,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
 
 class DetteCreateView(DetteOrRemboursementCreateView):
     model = Dette
-    fields = ['creancier', 'debiteurs', 'montant', 'description', 'date', 'time']
+    form_class = DetteForm
 
 
 class RemboursementCreateView(DetteOrRemboursementCreateView):
