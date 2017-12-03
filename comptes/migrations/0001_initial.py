@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
             name='Couple',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('femme', models.ForeignKey(related_name='femme', to=settings.AUTH_USER_MODEL)),
-                ('mari', models.ForeignKey(related_name='mari', to=settings.AUTH_USER_MODEL)),
+                ('femme', models.ForeignKey(on_delete=models.CASCADE, related_name='femme', to=settings.AUTH_USER_MODEL)),
+                ('mari', models.ForeignKey(on_delete=models.CASCADE, related_name='mari', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('montant', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('description', models.TextField()),
                 ('moment', models.DateTimeField()),
-                ('creancier', models.ForeignKey(related_name='creances', to=settings.AUTH_USER_MODEL)),
+                ('creancier', models.ForeignKey(on_delete=models.CASCADE, related_name='creances', to=settings.AUTH_USER_MODEL)),
                 ('debiteurs', models.ManyToManyField(related_name='dettes', to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -58,9 +58,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('montant', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('moment', models.DateTimeField()),
-                ('credite', models.ForeignKey(related_name='credits', to=settings.AUTH_USER_MODEL)),
-                ('crediteur', models.ForeignKey(related_name='debits', to=settings.AUTH_USER_MODEL)),
-                ('occasion', models.ForeignKey(to='comptes.Occasion', null=True)),
+                ('credite', models.ForeignKey(on_delete=models.CASCADE, related_name='credits', to=settings.AUTH_USER_MODEL)),
+                ('crediteur', models.ForeignKey(on_delete=models.CASCADE, related_name='debits', to=settings.AUTH_USER_MODEL)),
+                ('occasion', models.ForeignKey(on_delete=models.CASCADE, to='comptes.Occasion', null=True)),
             ],
             options={
                 'ordering': ['moment'],
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dette',
             name='occasion',
-            field=models.ForeignKey(to='comptes.Occasion'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='comptes.Occasion'),
             preserve_default=True,
         ),
     ]

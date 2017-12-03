@@ -2,10 +2,11 @@ from datetime import time
 from decimal import Decimal
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.db import models
 from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
                               ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField, TimeField)
 from django.db.models.functions import Coalesce
+from django.urls import reverse
 
 from ndh.models import Links
 
@@ -59,14 +60,14 @@ class Occasion(Links, Model):
 
 
 class Dette(Links, Model):
-    creancier = ForeignKey(User, related_name='creances', verbose_name='créancier')
+    creancier = ForeignKey(User, related_name='creances', verbose_name='créancier', on_delete=models.CASCADE)
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     debiteurs = ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
     description = TextField()
     date = DateField()
     time = TimeField('heure', default=time(12))
-    occasion = ForeignKey(Occasion)
-    scribe = ForeignKey(User, related_name='+', null=True)
+    occasion = ForeignKey(Occasion, on_delete=models.CASCADE)
+    scribe = ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
     cree = DateTimeField('créé', auto_now_add=True)
     modifie = DateTimeField('modifié', auto_now=True)
 
@@ -92,13 +93,13 @@ class Dette(Links, Model):
 
 
 class Remboursement(Links, Model):
-    crediteur = ForeignKey(User, related_name='debits', verbose_name='créditeur')
-    credite = ForeignKey(User, related_name='credits', verbose_name='crédité')
+    crediteur = ForeignKey(User, related_name='debits', verbose_name='créditeur', on_delete=models.CASCADE)
+    credite = ForeignKey(User, related_name='credits', verbose_name='crédité', on_delete=models.CASCADE)
     montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     date = DateField()
     time = TimeField('heure')
-    occasion = ForeignKey(Occasion, null=True)
-    scribe = ForeignKey(User, related_name='+', null=True)
+    occasion = ForeignKey(Occasion, null=True, on_delete=models.CASCADE)
+    scribe = ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
     cree = DateTimeField('créé', auto_now_add=True)
     modifie = DateTimeField('modifié', auto_now=True)
 
