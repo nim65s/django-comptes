@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='occasion',
             name='name',
-            field=models.CharField(default='noname', max_length=200, unique=True),
+            field=models.CharField(default='noname', max_length=200),
             preserve_default=False,
         ),
         migrations.AlterField(
