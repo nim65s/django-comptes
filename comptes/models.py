@@ -3,8 +3,6 @@ from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import (BooleanField, DateField, DateTimeField, DecimalField,
-                              ForeignKey, ManyToManyField, Model, TextField, TimeField)
 from django.urls import reverse
 
 from ndh.models import Links, NamedModel
@@ -12,11 +10,11 @@ from ndh.utils import query_sum
 
 
 class Occasion(Links, NamedModel):
-    description = TextField()
-    membres = ManyToManyField(User, blank=True)
-    debut = DateTimeField('début')
-    fin = DateTimeField()
-    clos = BooleanField(default=False)
+    description = models.TextField()
+    membres = models.ManyToManyField(User, blank=True)
+    debut = models.DateTimeField('début')
+    fin = models.DateTimeField()
+    clos = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('comptes:occasion', kwargs={'slug': self.slug})
@@ -50,17 +48,17 @@ class Occasion(Links, NamedModel):
         return Decimal(solde).quantize(Decimal('.01'))
 
 
-class Dette(Links, Model):
-    creancier = ForeignKey(User, related_name='creances', verbose_name='créancier', on_delete=models.CASCADE)
-    montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
-    debiteurs = ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
-    description = TextField()
-    date = DateField()
-    time = TimeField('heure', default=time(12))
-    occasion = ForeignKey(Occasion, on_delete=models.CASCADE)
-    scribe = ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
-    cree = DateTimeField('créé', auto_now_add=True)
-    modifie = DateTimeField('modifié', auto_now=True)
+class Dette(Links, models.Model):
+    creancier = models.ForeignKey(User, related_name='creances', verbose_name='créancier', on_delete=models.CASCADE)
+    montant = models.DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
+    debiteurs = models.ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
+    description = models.TextField()
+    date = models.DateField()
+    time = models.TimeField('heure', default=time(12))
+    occasion = models.ForeignKey(Occasion, on_delete=models.CASCADE)
+    scribe = models.ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
+    cree = models.DateTimeField('créé', auto_now_add=True)
+    modifie = models.DateTimeField('modifié', auto_now=True)
 
     class Meta:
         ordering = ["-date", "-time"]
@@ -83,16 +81,16 @@ class Dette(Links, Model):
         return self.montant / self.debiteurs.count()
 
 
-class Remboursement(Links, Model):
-    crediteur = ForeignKey(User, related_name='debits', verbose_name='créditeur', on_delete=models.CASCADE)
-    credite = ForeignKey(User, related_name='credits', verbose_name='crédité', on_delete=models.CASCADE)
-    montant = DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
-    date = DateField()
-    time = TimeField('heure')
-    occasion = ForeignKey(Occasion, null=True, on_delete=models.CASCADE)
-    scribe = ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
-    cree = DateTimeField('créé', auto_now_add=True)
-    modifie = DateTimeField('modifié', auto_now=True)
+class Remboursement(Links, models.Model):
+    crediteur = models.ForeignKey(User, related_name='debits', verbose_name='créditeur', on_delete=models.CASCADE)
+    credite = models.ForeignKey(User, related_name='credits', verbose_name='crédité', on_delete=models.CASCADE)
+    montant = models.DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
+    date = models.DateField()
+    time = models.TimeField('heure')
+    occasion = models.ForeignKey(Occasion, null=True, on_delete=models.CASCADE)
+    scribe = models.ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
+    cree = models.DateTimeField('créé', auto_now_add=True)
+    modifie = models.DateTimeField('modifié', auto_now=True)
 
     class Meta:
         ordering = ["-date", "-time"]
