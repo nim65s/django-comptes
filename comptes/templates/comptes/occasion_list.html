@@ -7,7 +7,7 @@
 
 <ul>
 {% for occasion in occasions %}
-<li><a href="{{ occasion.get_full_url }}">{{ occasion.nom }}</a></li>
+<li>{{ occasion.get_link }}</li>
 {% endfor %}
 </li>
 

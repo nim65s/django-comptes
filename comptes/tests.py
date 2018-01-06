@@ -14,8 +14,8 @@ class ComptesTests(TestCase):
     def setUp(self):
         dt = now()
         a, b, c = (User.objects.create_user(guy, email='%s@example.org' % guy, password=guy) for guy in 'abc')
-        o = Occasion(nom='O', slug='o', description='test occasion 1', debut=dt, fin=dt + timedelta(days=30))
-        p = Occasion(nom='P', slug='p', description='test occasion 2', debut=dt, fin=dt + timedelta(days=30))
+        o = Occasion(name='O', slug='o', description='test occasion 1', debut=dt, fin=dt + timedelta(days=30))
+        p = Occasion(name='P', slug='p', description='test occasion 2', debut=dt, fin=dt + timedelta(days=30))
         o.save()
         p.save()
         p.membres.add(a)
@@ -39,15 +39,10 @@ class ComptesTests(TestCase):
 
     # Occasion
 
-    def test_occasion_str(self):
-        o, p = Occasion.objects.all()
-        self.assertEqual(str(o), 'Occasion: O')
-        self.assertEqual(str(p), 'Occasion: P')
-
     def test_occasion_get_membres(self):
         for occasion in Occasion.objects.all():
             for user in User.objects.all():
-                if user.username == 'c' and occasion.nom == 'P':
+                if user.username == 'c' and occasion.name == 'P':
                     self.assertNotIn(user, occasion.get_membres())
                 else:
                     self.assertIn(user, occasion.get_membres())

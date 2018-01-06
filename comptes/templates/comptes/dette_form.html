@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 
 {% block content %}
-<h1>Ajouter une Dette pour {{ occasion.nom }}</h1>
+<h1>Ajouter une Dette pour {{ occasion }}</h1>
 <form method="post" action="" class="form-horizontal" role="form">
   {% csrf_token %}
   {% bootstrap_form form layout="horizontal" %}

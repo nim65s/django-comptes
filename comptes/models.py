@@ -3,25 +3,20 @@ from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
-                              ForeignKey, ManyToManyField, Model, SlugField, TextField, TimeField)
+from django.db.models import (BooleanField, DateField, DateTimeField, DecimalField,
+                              ForeignKey, ManyToManyField, Model, TextField, TimeField)
 from django.urls import reverse
 
-from ndh.models import Links
+from ndh.models import Links, NamedModel
 from ndh.utils import query_sum
 
 
-class Occasion(Links, Model):
-    nom = CharField(max_length=50, unique=True)
-    slug = SlugField(unique=True)
+class Occasion(Links, NamedModel):
     description = TextField()
     membres = ManyToManyField(User, blank=True)
     debut = DateTimeField('début')
     fin = DateTimeField()
     clos = BooleanField(default=False)
-
-    def __str__(self):
-        return "Occasion: %s" % self.nom
 
     def get_absolute_url(self):
         return reverse('comptes:occasion', kwargs={'slug': self.slug})

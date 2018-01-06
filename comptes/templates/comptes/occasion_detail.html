@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Comptes - {{ occasion.nom }}{% endblock %}
+{% block title %}Comptes - {{ occasion }}{% endblock %}
 
 {% block content %}
-<h1>{{ occasion.nom }}</h1>
+<h1>{{ occasion }}</h1>
 
 <p>{{ occasion.description }}: du {{ occasion.debut }} au {{ occasion.fin }} {% if occasion.clos %}<p>Clos</p>{% endif %}</p>
 <h2>Soldes</h2>
