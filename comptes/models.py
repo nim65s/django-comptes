@@ -4,15 +4,11 @@ from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import (BooleanField, CharField, DateField, DateTimeField, DecimalField,
-                              ForeignKey, ManyToManyField, Model, SlugField, Sum, TextField, TimeField)
-from django.db.models.functions import Coalesce
+                              ForeignKey, ManyToManyField, Model, SlugField, TextField, TimeField)
 from django.urls import reverse
 
 from ndh.models import Links
-
-
-def query_sum(queryset, field='montant'):
-    return queryset.aggregate(s=Coalesce(Sum(field), 0))['s']
+from ndh.utils import query_sum
 
 
 class Occasion(Links, Model):
@@ -37,16 +33,16 @@ class Occasion(Links, Model):
         return sorted([(self.solde(m), m) for m in self.get_membres()], key=lambda x: -x[0])
 
     def depenses(self):
-        return query_sum(self.dette_set)
+        return query_sum(self.dette_set, 'montant')
 
     def solde(self, membre):
         solde = 0
         dettes = sum([d.montant / len(d.debiteurs.all()) for d in membre.dettes.filter(occasion=self)])
-        creances = query_sum(self.dette_set.filter(creancier=membre))
-        debits = query_sum(membre.debits.filter(occasion=self))
-        credits = query_sum(membre.credits.filter(occasion=self))
-        # debits2 = query_sum(self.remboursement_set.filter(crediteur=membre))
-        # credits2 = query_sum(self.remboursement_set.filter(credite=membre))
+        creances = query_sum(self.dette_set.filter(creancier=membre), 'montant')
+        debits = query_sum(membre.debits.filter(occasion=self), 'montant')
+        credits = query_sum(membre.credits.filter(occasion=self), 'montant')
+        # debits2 = query_sum(self.remboursement_set.filter(crediteur=membre), 'montant')
+        # credits2 = query_sum(self.remboursement_set.filter(credite=membre), 'montant')
         if dettes:
             solde -= dettes
         if creances:
