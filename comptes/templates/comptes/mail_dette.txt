@@ -5,7 +5,7 @@ Hello :)
 - *Créancier*:     {{ object.creancier }}
 - *Montant total*: {{ object.montant|floatformat:2 }} €
 - *Débiteurs*:     {{ object.debiteurs_list }}
-- *Date*:          Le {{ object.date }} à {{ object.time }}
+- *Date*:          {{ object.moment }}
 - *Description*:   {{ object.description }}
 
 Cette dette augmente donc le solde de {{ object.creancier }} de {{ object.montant|floatformat:2 }} €,

@@ -20,12 +20,12 @@ class ComptesTests(TestCase):
         p.save()
         p.membres.add(a)
         p.membres.add(b)
-        d = Dette(creancier=a, montant=9, date=dt, occasion=o, scribe=a, description='Lorem Ipsum')
+        d = Dette(creancier=a, montant=9, moment=dt, occasion=o, scribe=a, description='Lorem Ipsum')
         d.save()
         d.debiteurs.add(a)
         d.debiteurs.add(b)
         d.debiteurs.add(c)
-        Remboursement(crediteur=b, credite=a, montant=3, date=dt.date(), time=dt.time(), scribe=c, occasion=o).save()
+        Remboursement(crediteur=b, credite=a, montant=3, moment=dt, scribe=c, occasion=o).save()
 
     # MODELS
 
@@ -102,8 +102,8 @@ class ComptesTests(TestCase):
             'debiteurs': [2],
             'montant': 20,
             'description': 'test',
-            'date': date(1990, 6, 14),
-            'time': time(4, 2),
+            'moment_0': date(1990, 6, 14),
+            'moment_1': time(4, 2),
         }
         r = self.client.post(reverse('comptes:dette', kwargs={'oc_slug': 'p'}), dette_data)
         self.assertEqual(r.status_code, 302)
@@ -119,8 +119,8 @@ class ComptesTests(TestCase):
             'crediteur': 2,
             'credite': 3,
             'montant': 20,
-            'date': date(1990, 6, 14),
-            'time': time(4, 2),
+            'moment_0': date(1990, 6, 14),
+            'moment_1': time(4, 2),
         }
 
         r = self.client.post(reverse('comptes:remboursement', kwargs={'oc_slug': 'o'}), dette_data)

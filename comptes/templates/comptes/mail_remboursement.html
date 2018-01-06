@@ -9,7 +9,7 @@
       <dt>Créditeur:</dt><dd>{{ object.crediteur }}</dd>
       <dt>Montant:</dt><dd>{{ object.montant|floatformat:2 }} €</dd>
       <dt>Crédité:</dt><dd>{{ object.credite }}</dd>
-      <dt>Date:</dt><dd>Le {{ object.date }} à {{ object.time }}</dd>
+      <dt>Date:</dt><dd>{{ object.moment }}</dd>
     </dl>
     <p>Plus d’infos <a href="{{ object.get_full_url }}">directement sur le site</a></p>
     <p>@+ !</p>

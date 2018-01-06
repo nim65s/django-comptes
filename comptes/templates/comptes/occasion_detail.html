@@ -20,7 +20,7 @@
     <td>{{ dette.creancier }}</td>
     <td class="euro">{{ dette.montant }}</td>
     <td>{{ dette.debiteurs.all|join:", " }}</td>
-    <td class="right">{{ dette.date }} {{ dette.time }}</td>
+    <td class="right">{{ dette.moment }}</td>
     <td>{{ dette.description }}</td>
   </tr>{% empty %}<tr><td colspan="5">Pas de dettes pour l’instant…</td><tr>{% endfor %}
       <tr><th>Total</th><th class="euro">{{ occasion.depenses }}</th></tr>
@@ -32,7 +32,7 @@
     <td>{{ remboursement.crediteur }}</td>
     <td>{{ remboursement.credite }}</td>
     <td class="euro">{{ remboursement.montant }}</td>
-    <td class="right">{{ remboursement.date }} {{ remboursement.time }}</td>
+    <td class="right">{{ remboursement.moment }}</td>
   </tr>{% endfor %}
 </table>
 

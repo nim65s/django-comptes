@@ -1,4 +1,3 @@
-from datetime import time
 from decimal import Decimal
 
 from django.contrib.auth.models import User
@@ -53,13 +52,12 @@ class Dette(Links, TimeStampedModel):
     montant = models.DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
     debiteurs = models.ManyToManyField(User, related_name='dettes', verbose_name='débiteurs')
     description = models.TextField()
-    date = models.DateField()
-    time = models.TimeField('heure', default=time(12))
+    moment = models.DateTimeField()
     occasion = models.ForeignKey(Occasion, on_delete=models.CASCADE)
     scribe = models.ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ["-date", "-time"]
+        ordering = ["-moment"]
 
     def __str__(self):
         fmt = "Dette: %s a payé %.2f à %i personnes pour «%s»"
@@ -83,13 +81,12 @@ class Remboursement(Links, TimeStampedModel):
     crediteur = models.ForeignKey(User, related_name='debits', verbose_name='créditeur', on_delete=models.CASCADE)
     credite = models.ForeignKey(User, related_name='credits', verbose_name='crédité', on_delete=models.CASCADE)
     montant = models.DecimalField(max_digits=8, decimal_places=2)  # Je ne promet rien sur les dettes de 10M€ et plus
-    date = models.DateField()
-    time = models.TimeField('heure')
+    moment = models.DateTimeField()
     occasion = models.ForeignKey(Occasion, null=True, on_delete=models.CASCADE)
     scribe = models.ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ["-date", "-time"]
+        ordering = ["-moment"]
 
     def __str__(self):
         return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)

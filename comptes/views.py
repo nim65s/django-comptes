@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template.loader import get_template
 from django.views.generic import CreateView
 
-from .forms import DetteForm
+from .forms import DetteForm, RemboursementForm
 from .models import Dette, Occasion, Remboursement
 
 
@@ -87,4 +87,4 @@ class DetteCreateView(DetteOrRemboursementCreateView):
 
 class RemboursementCreateView(DetteOrRemboursementCreateView):
     model = Remboursement
-    fields = ['crediteur', 'credite', 'montant', 'date', 'time']
+    form_class = RemboursementForm

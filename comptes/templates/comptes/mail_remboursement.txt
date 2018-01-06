@@ -6,7 +6,7 @@ ajouté le Remboursement suivant:
 - *Créditeur*: {{ object.crediteur }}
 - *Montant*:   {{ object.montant|floatformat:2 }} €
 - *Crédité*:   {{ object.credite }}
-- *Date*:      Le {{ object.date }} à {{ object.time }}
+- *Date*:      {{ object.moment }}
 
 Plus d’infos directement sur le site: {{ object.get_full_url }}
 
