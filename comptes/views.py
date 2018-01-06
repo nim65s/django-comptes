@@ -52,7 +52,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
     def send_mail(self):
         model = self.model.__name__
         ctx = {'object': self.object}
-        subject = '%s ajouté' % model
+        subject = f'{model} ajouté'
         emails = []
         if model == 'Remboursement':
             if self.object.crediteur.email:
@@ -64,7 +64,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
             if self.object.creancier.email and self.object.creancier.email not in emails:
                 emails.append(self.object.creancier.email)
             subject += 'e'
-        text, html = (get_template('comptes/mail_%s.%s' % (model.lower(), alt)).render(ctx) for alt in ['txt', 'html'])
+        text, html = (get_template(f'comptes/mail_{model.lower()}.{alt}').render(ctx) for alt in ['txt', 'html'])
         msg = EmailMultiAlternatives(subject, text, settings.DEFAULT_FROM_EMAIL, emails)
         msg.attach_alternative(html, 'text/html')
         msg.send()

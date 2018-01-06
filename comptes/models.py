@@ -60,8 +60,7 @@ class Dette(Links, TimeStampedModel):
         ordering = ["-moment"]
 
     def __str__(self):
-        fmt = "Dette: %s a payé %.2f à %i personnes pour «%s»"
-        return fmt % (self.creancier, self.montant, self.debiteurs.count(), self.description)
+        return f'{self.creancier} a payé {self.montant:.2f} € à {self.debiteurs_list()} pour «{self.description}»'
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()
@@ -89,7 +88,7 @@ class Remboursement(Links, TimeStampedModel):
         ordering = ["-moment"]
 
     def __str__(self):
-        return "%s a remboursé %.2f € à %s" % (self.crediteur, self.montant, self.credite)
+        return f'{self.crediteur} a remboursé {self.montant:.2f} € à {self.credite}'
 
     def get_absolute_url(self):
         return self.occasion.get_absolute_url()

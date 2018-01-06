@@ -13,7 +13,7 @@ ROOT_URL = 'comptes'
 class ComptesTests(TestCase):
     def setUp(self):
         dt = now()
-        a, b, c = (User.objects.create_user(guy, email='%s@example.org' % guy, password=guy) for guy in 'abc')
+        a, b, c = (User.objects.create_user(guy, email=f'{guy}@example.org', password=guy) for guy in 'abc')
         o = Occasion(name='O', slug='o', description='test occasion 1', debut=dt, fin=dt + timedelta(days=30))
         p = Occasion(name='P', slug='p', description='test occasion 2', debut=dt, fin=dt + timedelta(days=30))
         o.save()
@@ -33,9 +33,9 @@ class ComptesTests(TestCase):
         o = Occasion.objects.first()
         d = Dette.objects.first()
         r = Remboursement.objects.first()
-        self.assertEqual(o.get_absolute_url(), '/%s/%s' % (ROOT_URL, o.slug))
-        self.assertEqual(d.get_absolute_url(), '/%s/%s' % (ROOT_URL, o.slug))
-        self.assertEqual(r.get_absolute_url(), '/%s/%s' % (ROOT_URL, o.slug))
+        self.assertEqual(o.get_absolute_url(), f'/{ROOT_URL}/{o.slug}')
+        self.assertEqual(d.get_absolute_url(), f'/{ROOT_URL}/{o.slug}')
+        self.assertEqual(r.get_absolute_url(), f'/{ROOT_URL}/{o.slug}')
 
     # Occasion
 
@@ -57,7 +57,7 @@ class ComptesTests(TestCase):
     # Dette
 
     def test_dette_str(self):
-        self.assertEqual(str(Dette.objects.first()), 'Dette: a a payé 9.00 à 3 personnes pour «Lorem Ipsum»')
+        self.assertEqual(str(Dette.objects.first()), 'a a payé 9.00 € à a, b & c pour «Lorem Ipsum»')
 
     def test_dette_debiteurs_list(self):
         dette = Dette.objects.first()
