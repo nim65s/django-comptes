@@ -1,12 +1,11 @@
 Hello :)
 
-{% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a
-ajouté le Remboursement suivant:
+{% if object.scribe %}{{ object.scribe }}{% else %}Un admin{% endif %} a ajouté le Remboursement suivant:
 
-- *Créditeur*: {{ object.crediteur }}
-- *Montant*:   {{ object.montant|floatformat:2 }} €
-- *Crédité*:   {{ object.credite }}
-- *Date*:      {{ object.moment }}
+- Créditeur: {{ object.crediteur }}
+- Montant:   {{ object.montant|floatformat:2 }} €
+- Crédité:   {{ object.credite }}
+- Date:      {{ object.moment }}
 
 Plus d’infos directement sur le site: {{ object.get_full_url }}
 
