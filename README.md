@@ -2,6 +2,7 @@ Comptes
 =======
 [![Build Status](https://travis-ci.org/nim65s/django-comptes.svg?branch=master)](https://travis-ci.org/nim65s/django-comptes)
 [![Coverage Status](https://coveralls.io/repos/github/nim65s/django-comptes/badge.svg?branch=master)](https://coveralls.io/github/nim65s/django-comptes?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a0783da8c0461fe95eaf/maintainability)](https://codeclimate.com/github/nim65s/django-comptes/maintainability)
 
 
 But
