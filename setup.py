@@ -2,10 +2,7 @@ import os
 
 from setuptools import setup
 
-readme_file = os.path.join(os.path.dirname(__file__), 'README.rst')
-if not os.path.isfile(readme_file):
-    readme_file = os.path.join(os.path.dirname(__file__), 'README.md')
-with open(readme_file) as readme:
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
 with open(os.path.join(os.path.dirname(__file__), 'requirements.in')) as requirements:
@@ -24,6 +21,7 @@ setup(
     license='BSD',
     description='A simple Django app to keep accounts.',
     long_description=README,
+    long_description_content_type="text/markdown",
     url='https://github.com/nim65s/django-comptes',
     author='Guilhem Saurel',
     author_email='webmaster@saurel.me',
