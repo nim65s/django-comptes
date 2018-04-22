@@ -1,6 +1,7 @@
 from datetime import date, time, timedelta
 
 from django.contrib.auth.models import User
+from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
@@ -115,6 +116,7 @@ class ComptesTests(TestCase):
         self.assertEqual(r.url, '/comptes/p/dette')
 
     def test_create_remboursement(self):
+        self.assertEqual(len(mail.outbox), 0)
         dette_data = {
             'crediteur': 2,
             'credite': 3,
@@ -132,3 +134,7 @@ class ComptesTests(TestCase):
         r = self.client.post(reverse('comptes:remboursement', kwargs={'oc_slug': 'o'}), dette_data)
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.url, '/comptes/o')
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('</li>', mail.outbox[0].alternatives[0][0])
+        self.assertIn('a a ajouté', mail.outbox[0].alternatives[0][0])
