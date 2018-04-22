@@ -7,7 +7,7 @@
 
 <p>{{ occasion.description }}: du {{ occasion.debut }} au {{ occasion.fin }} {% if occasion.clos %}<p>Clos</p>{% endif %}</p>
 <h2>Soldes</h2>
-<table class="table table-striped"><tr><th>Membre</th><th class="right">Solde</th></tr>
+<table class="table table-striped"><tr><th>Membre</th><th class="text-right">Solde</th></tr>
   {% for solde, membre in occasion.solde_des_membres %}{% if solde != 0 %}
   <tr><td>{{ membre }}</td><td class="euro">{{ solde }}</td></tr>
   {% endif %}
@@ -15,24 +15,24 @@
 </table>
 <h2>Dettes</h2>
 <a href="{% url 'comptes:dette' oc_slug=occasion.slug %}">En ajouter une</a>
-<table class="table table-striped"><tr><th>Créancier</th><th class="right">Montant</th><th>Débiteurs</th><th class="right">Moment</th><th>Description</th></tr>
+<table class="table table-striped"><tr><th>Créancier</th><th class="text-right">Montant</th><th>Débiteurs</th><th class="text-right">Moment</th><th>Description</th></tr>
   {% for dette in occasion.dette_set.all %}<tr>
     <td>{{ dette.creancier }}</td>
     <td class="euro">{{ dette.montant }}</td>
     <td>{{ dette.debiteurs.all|join:", " }}</td>
-    <td class="right">{{ dette.moment }}</td>
+    <td class="text-right">{{ dette.moment }}</td>
     <td>{{ dette.description }}</td>
   </tr>{% empty %}<tr><td colspan="5">Pas de dettes pour l’instant…</td><tr>{% endfor %}
       <tr><th>Total</th><th class="euro">{{ occasion.depenses }}</th></tr>
 </table>
 <h2>Remboursements</h2>
 <a href="{% url 'comptes:remboursement' oc_slug=occasion.slug %}">En ajouter une</a>
-<table class="table table-striped"><tr><th>Créditeur</th><th>Crédité</th><th class="right">Montant</th><th class="right">Moment</th></tr>
+<table class="table table-striped"><tr><th>Créditeur</th><th>Crédité</th><th class="text-right">Montant</th><th class="text-right">Moment</th></tr>
   {% for remboursement in occasion.remboursement_set.all %}<tr>
     <td>{{ remboursement.crediteur }}</td>
     <td>{{ remboursement.credite }}</td>
     <td class="euro">{{ remboursement.montant }}</td>
-    <td class="right">{{ remboursement.moment }}</td>
+    <td class="text-right">{{ remboursement.moment }}</td>
   </tr>{% endfor %}
 </table>
 

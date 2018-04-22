@@ -12,7 +12,7 @@
 </li>
 
 <h2>Soldes globaux</h2>
-<table class="table table-striped"><tr><th>Membre</th><th class="right">Solde</th></tr>
+<table class="table table-striped"><tr><th>Membre</th><th class="text-right">Solde</th></tr>
   {% for solde, membre in soldes %}{% if solde != 0 %}
   <tr><td>{{ membre }}</td><td class="euro">{{ solde }}</td></tr>
   {% endif %}
