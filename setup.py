@@ -8,7 +8,7 @@ with open('requirements.in') as requirements:
 
 setup(
     name='django-comptes',
-    version='1.1.0',
+    version='2.0.0',
     packages=['comptes'],
     install_requires=REQUIREMENTS,
     include_package_data=True,
