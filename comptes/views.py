@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
-from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.template.loader import get_template
 from django.views.generic import CreateView
+
+from dmdm.mail import send_mail
 
 from .forms import DetteForm, RemboursementForm
 from .models import Dette, Occasion, Remboursement
@@ -64,10 +64,7 @@ class DetteOrRemboursementCreateView(UserPassesTestMixin, CreateView):
             if self.object.creancier.email and self.object.creancier.email not in emails:
                 emails.append(self.object.creancier.email)
             subject += 'e'
-        text, html = (get_template(f'comptes/mail_{model.lower()}.{alt}').render(ctx) for alt in ['txt', 'html'])
-        msg = EmailMultiAlternatives(subject, text, settings.DEFAULT_FROM_EMAIL, emails)
-        msg.attach_alternative(html, 'text/html')
-        msg.send()
+        send_mail(subject, f'comptes/mail_{model.lower()}.md', settings.DEFAULT_FROM_EMAIL, emails, ctx, self.request)
 
     def get_context_data(self, **kwargs):
         ctx = super(DetteOrRemboursementCreateView, self).get_context_data(**kwargs)
