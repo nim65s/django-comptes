@@ -16,11 +16,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dette',
             name='scribe',
-            field=models.ForeignKey(on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL, null=True, related_name='+'),
+            field=models.ForeignKey(
+                on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL, null=True, related_name='+'),
         ),
         migrations.AddField(
             model_name='remboursement',
             name='scribe',
-            field=models.ForeignKey(on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL, null=True, related_name='+'),
+            field=models.ForeignKey(
+                on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL, null=True, related_name='+'),
         ),
     ]

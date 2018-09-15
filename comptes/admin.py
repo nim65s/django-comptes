@@ -4,14 +4,14 @@ from .models import Dette, Occasion, Remboursement
 
 
 class DetteAdmin(ModelAdmin):
-    filter_horizontal = ('debiteurs',)
+    filter_horizontal = ('debiteurs', )
     radio_fields = {"occasion": HORIZONTAL}
-    readonly_fields = ('scribe',)
+    readonly_fields = ('scribe', )
 
 
 class RemboursementAdmin(ModelAdmin):
     radio_fields = {"occasion": HORIZONTAL}
-    readonly_fields = ('scribe',)
+    readonly_fields = ('scribe', )
 
 
 site.register(Occasion)

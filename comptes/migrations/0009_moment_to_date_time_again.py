@@ -19,5 +19,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-            migrations.RunPython(moment_to_date_time),
+        migrations.RunPython(moment_to_date_time),
     ]

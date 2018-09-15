@@ -17,7 +17,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dette',
             name='creancier',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='creances', to=settings.AUTH_USER_MODEL, verbose_name='créancier'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='creances',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='créancier'),
         ),
         migrations.AlterField(
             model_name='dette',
@@ -42,12 +46,20 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='remboursement',
             name='credite',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='credits', to=settings.AUTH_USER_MODEL, verbose_name='crédité'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='credits',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='crédité'),
         ),
         migrations.AlterField(
             model_name='remboursement',
             name='crediteur',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='debits', to=settings.AUTH_USER_MODEL, verbose_name='créditeur'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='debits',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='créditeur'),
         ),
         migrations.AlterField(
             model_name='remboursement',

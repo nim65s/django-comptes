@@ -23,7 +23,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='remboursement',
             name='time',
-            field=models.TimeField(default=datetime.datetime(2015, 11, 1, 12, 35, 25, 529116, tzinfo=utc), verbose_name='heure'),
+            field=models.TimeField(
+                default=datetime.datetime(2015, 11, 1, 12, 35, 25, 529116, tzinfo=utc), verbose_name='heure'),
             preserve_default=False,
         ),
         migrations.AlterField(

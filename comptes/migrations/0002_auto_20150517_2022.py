@@ -20,7 +20,5 @@ class Migration(migrations.Migration):
             model_name='occasion',
             name='couples_membres',
         ),
-        migrations.DeleteModel(
-            name='Couple',
-        ),
+        migrations.DeleteModel(name='Couple', ),
     ]
