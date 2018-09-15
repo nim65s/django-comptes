@@ -1,12 +1,15 @@
 language: python
 python:
-    - 3.6
+  - 3.6
 install:
-    - pip install -r requirements.txt flake8 python-coveralls safety
+  - pip install pipenv
+  - pipenv install --deploy --dev
 script:
-    - ./manage.py migrate
-    - coverage run manage.py test
-    - flake8 .
-    - safety check
+  - ./manage.py migrate
+  - coverage run manage.py test
+  - flake8 .
+  - yapf -dr .
+  - safety check
+  - pip install 'git+https://github.com/nim65s/django-comptes.git#egg=ndh'
 after_success:
-    - coveralls
+  - coveralls
