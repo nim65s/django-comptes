@@ -93,7 +93,7 @@ class ComptesTests(TestCase):
         self.client.login(username='a', password='a')
         self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 200)
         self.client.login(username='c', password='c')
-        self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 302)
+        self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 403)
 
     def test_create_dette(self):
         self.client.login(username='a', password='a')
