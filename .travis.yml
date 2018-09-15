@@ -10,6 +10,6 @@ script:
   - flake8 .
   - yapf -dr .
   - safety check
-  - pip install 'git+https://github.com/nim65s/django-comptes.git#egg=comptes'
+  - pip install "git+https://github.com/${TRAVIS_REPO_SLUG}.git#egg=comptes"
 after_success:
   - coveralls
