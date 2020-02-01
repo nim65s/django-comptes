@@ -12,6 +12,8 @@ dmdm = "*"
 python-coveralls = "*"
 safety = "*"
 yapf = "*"
-
-[requires]
-python_version = "3.7"
+mypy = "*"
+setuptools-scm = "*"
+pydocstyle = "*"
+pre-commit = "*"
+django-stubs = "*"
