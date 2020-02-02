@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+"""Packaging configuration."""
 
 import os
 import re
 from subprocess import check_output
 
-from setuptools import setup
+from setuptools import setup  # type: ignore
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()

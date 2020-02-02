@@ -87,11 +87,11 @@
         },
         "dmdm": {
             "hashes": [
-                "sha256:1ef8bd5414a9215dfad5ad36cfcf22d5763d83149c657e9bb5d4cddf941fbcdc",
-                "sha256:89148fa9ce2b6ca980be4071ee75e66efee7c5a95f5e87ad6eadca1f15a0ce5c"
+                "sha256:5b7c4867a01cc14f150c909d5353ad548398766e46af1a89ee6983ecec47e669",
+                "sha256:b0bbac9c0f70ba4b844bae6f0348eb31da1d4f2b428cdde00615ce4ca2c1fea0"
             ],
             "index": "pypi",
-            "version": "==1.4.1"
+            "version": "==1.4.3"
         },
         "emails": {
             "hashes": [

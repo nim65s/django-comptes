@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Run the project."""
 import os
 import sys
 
