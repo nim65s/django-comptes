@@ -1,5 +1,0 @@
-include LICENSE
-include README.md
-recursive-include comptes/migrations *
-recursive-include comptes/templates *
-recursive-include docs *
