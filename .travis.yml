@@ -1,15 +1,19 @@
 language: python
-dist: xenial
+dist: bionic
 python:
   - 3.6
+  - 3.7
+  - 3.8
 install:
   - pip install pipenv
   - pipenv install --deploy --dev
 script:
   - ./manage.py migrate
-  - coverage run manage.py test
+  - PYTHONWARNINGS=always coverage run manage.py test
   - flake8 .
   - yapf -dr .
+  - mypy .
+  - pydocstyle
   - safety check
   - pip install "git+https://github.com/${TRAVIS_REPO_SLUG}.git#egg=comptes"
 after_success:
