@@ -13,7 +13,6 @@ class DetteAdmin(ModelAdmin):
 
 class RemboursementAdmin(ModelAdmin):
     """Style admin interface for Remboursement."""
-    filter_horizontal = ('debiteurs', )
     radio_fields = {"occasion": HORIZONTAL}
     readonly_fields = ('scribe', )
 
