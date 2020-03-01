@@ -1,3 +1,4 @@
+"""Urls definition for comptes."""
 from django.urls import path
 
 from .views import DetteCreateView, RemboursementCreateView, home

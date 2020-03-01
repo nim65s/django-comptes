@@ -1,3 +1,4 @@
+"""Main test module."""
 from datetime import date, time, timedelta
 
 from django.contrib.auth.models import User
@@ -12,7 +13,9 @@ ROOT_URL = 'comptes'
 
 
 class ComptesTests(TestCase):
+    """Main test class."""
     def setUp(self):
+        """Create a few guys and their interractions for all tests."""
         dt = now()
         a, b, c = (User.objects.create_user(guy, email=f'{guy}@example.org', password=guy) for guy in 'abc')
         o = Occasion(name='O', slug='o', description='test occasion 1', debut=dt, fin=dt + timedelta(days=30))
@@ -31,6 +34,7 @@ class ComptesTests(TestCase):
     # MODELS
 
     def test_get_absolute_url(self):
+        """Test absolute urls of models."""
         o = Occasion.objects.first()
         d = Dette.objects.first()
         r = Remboursement.objects.first()
@@ -41,6 +45,7 @@ class ComptesTests(TestCase):
     # Occasion
 
     def test_occasion_get_membres(self):
+        """Check that members belongs to the right occasions."""
         for occasion in Occasion.objects.all():
             for user in User.objects.all():
                 if user.username == 'c' and occasion.name == 'P':
@@ -49,18 +54,22 @@ class ComptesTests(TestCase):
                     self.assertIn(user, occasion.get_membres())
 
     def test_occasion_solde_des_membres(self):
+        """Check that members get the right balance."""
         a, b, c = User.objects.all()
         self.assertEqual(Occasion.objects.first().solde_des_membres(), [(3, a), (0, b), (-3, c)])
 
     def test_occasion_depenses(self):
+        """Check the total amount of spent money."""
         self.assertEqual(Occasion.objects.first().depenses(), 9)
 
     # Dette
 
     def test_dette_str(self):
+        """Check the string representation of a Dette."""
         self.assertEqual(str(Dette.objects.first()), 'a a payé 9.00 € à a, b & c pour «Lorem Ipsum»')
 
     def test_dette_debiteurs_list(self):
+        """Check the string representation of the list of debitors."""
         dette = Dette.objects.first()
         self.assertEqual(dette.debiteurs_list(), 'a, b & c')
         dette.debiteurs.remove(User.objects.first())
@@ -68,21 +77,25 @@ class ComptesTests(TestCase):
         self.assertEqual(dette.debiteurs_list(), 'b')
 
     def test_dette_part(self):
+        """Check the share of a Dette."""
         self.assertEqual(Dette.objects.first().part(), 3)
 
     # Remboursement
 
     def test_remboursement_str(self):
+        """Check the string representation of a Remboursement."""
         self.assertEqual(str(Remboursement.objects.first()), 'b a remboursé 3.00 € à a')
 
     # VIEWS
 
     def test_access_home(self):
+        """Check access rights on the main page."""
         self.assertEqual(self.client.get(reverse('comptes:home')).status_code, 302)
         self.client.login(username='a', password='a')
         self.assertEqual(self.client.get(reverse('comptes:home')).status_code, 200)
 
     def test_access_occasion(self):
+        """Check access rights on a given Occasion."""
         self.assertEqual(self.client.get(reverse('comptes:occasion', kwargs={'slug': 'p'})).status_code, 302)
         self.client.login(username='a', password='a')
         self.assertEqual(self.client.get(reverse('comptes:occasion', kwargs={'slug': 'p'})).status_code, 200)
@@ -90,12 +103,14 @@ class ComptesTests(TestCase):
         self.assertEqual(self.client.get(reverse('comptes:occasion', kwargs={'slug': 'p'})).status_code, 403)
 
     def test_access_dette(self):
+        """Check access rights on a Dette."""
         self.client.login(username='a', password='a')
         self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 200)
         self.client.login(username='c', password='c')
         self.assertEqual(self.client.get(reverse('comptes:dette', kwargs={'oc_slug': 'p'})).status_code, 403)
 
     def test_create_dette(self):
+        """Check the creation of a Dette."""
         self.client.login(username='a', password='a')
 
         dette_data = {
@@ -116,6 +131,7 @@ class ComptesTests(TestCase):
         self.assertEqual(r.url, '/comptes/p/dette')
 
     def test_create_remboursement(self):
+        """Check the creation of a Remboursement."""
         self.assertEqual(len(mail.outbox), 0)
         dette_data = {
             'crediteur': 2,
