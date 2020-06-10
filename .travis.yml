@@ -5,7 +5,7 @@ python:
   - 3.7
   - 3.8
 install:
-  - pip install pipenv
+  - pip install -U pipenv
   - pipenv install --deploy --dev
 script:
   - ./manage.py migrate
