@@ -20,4 +20,3 @@ jobs:
       - run: pydocstyle
       - run: safety check
       - run: poetry check
-      - run: sphinx-build docs build
