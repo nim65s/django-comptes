@@ -13,8 +13,9 @@ class Migration(migrations.Migration):
             name='Couple',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('femme', models.ForeignKey(
-                    on_delete=models.CASCADE, related_name='femme', to=settings.AUTH_USER_MODEL)),
+                ('femme', models.ForeignKey(on_delete=models.CASCADE,
+                                            related_name='femme',
+                                            to=settings.AUTH_USER_MODEL)),
                 ('mari', models.ForeignKey(on_delete=models.CASCADE, related_name='mari',
                                            to=settings.AUTH_USER_MODEL)),
             ],
