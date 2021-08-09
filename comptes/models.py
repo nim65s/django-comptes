@@ -33,17 +33,19 @@ class Occasion(Links, NamedModel):
 
     def depenses(self) -> float:
         """Get the sum of all the money spend by everyone on this Occasion."""
-        return query_sum(self.dette_set, 'montant')
+        return query_sum(self.dette_set, 'montant', output_field=models.DecimalField())
 
     def solde(self, membre: User) -> Decimal:
         """Get the balance of one member of this Occasion."""
         solde = Decimal(0)
         dettes = sum([d.montant / len(d.debiteurs.all()) for d in membre.dettes.filter(occasion=self)])
-        creances = query_sum(self.dette_set.filter(creancier=membre), 'montant')
-        debits = query_sum(membre.debits.filter(occasion=self), 'montant')
-        credits = query_sum(membre.credits.filter(occasion=self), 'montant')
-        # debits2 = query_sum(self.remboursement_set.filter(crediteur=membre), 'montant')
-        # credits2 = query_sum(self.remboursement_set.filter(credite=membre), 'montant')
+        creances = query_sum(self.dette_set.filter(creancier=membre), 'montant', output_field=models.DecimalField())
+        debits = query_sum(membre.debits.filter(occasion=self), 'montant', output_field=models.DecimalField())
+        credits = query_sum(membre.credits.filter(occasion=self), 'montant', output_field=models.DecimalField())
+        # debits2 = query_sum(self.remboursement_set.filter(crediteur=membre), 'montant',
+        # output_field=models.DecimalField())
+        # credits2 = query_sum(self.remboursement_set.filter(credite=membre), 'montant',
+        # output_field=models.DecimalField())
         if dettes:
             solde -= dettes
         if creances:
