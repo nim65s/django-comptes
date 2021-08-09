@@ -1,7 +1,7 @@
 # Comptes
 
 [![Build Status](https://travis-ci.org/nim65s/django-comptes.svg?branch=master)](https://travis-ci.org/nim65s/django-comptes)
-[![Coverage Status](https://coveralls.io/repos/github/nim65s/django-comptes/badge.svg?branch=master)](https://coveralls.io/github/nim65s/django-comptes?branch=master)
+[![codecov](https://codecov.io/gh/nim65s/django-comptes/branch/master/graph/badge.svg?token=75XO2X5QW0)](https://codecov.io/gh/nim65s/django-comptes)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0783da8c0461fe95eaf/maintainability)](https://codeclimate.com/github/nim65s/django-comptes/maintainability)
 
 

@@ -9,10 +9,10 @@ license = "BSD-2-CLause"
 python = "^3.6.1"
 ndh = "^3.10.4"
 dmdm = "^1.4.3"
+coverage = "^5.5"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.0"
-python-coveralls = "^2.9.3"
 safety = "^1.10.3"
 yapf = "^0.31.0"
 mypy = "^0.812"
