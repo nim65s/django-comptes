@@ -1,8 +1,11 @@
 # Comptes
 
-[![Build Status](https://travis-ci.org/nim65s/django-comptes.svg?branch=master)](https://travis-ci.org/nim65s/django-comptes)
+[![PyPI version](https://badge.fury.io/py/django-comptes.svg)](https://pypi.org/project/django-comptes)
+[![Tests](https://github.com/nim65s/django-comptes/actions/workflows/test.yml/badge.svg)](https://github.com/nim65s/django-comptes/actions/workflows/test.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nim65s/django-comptes/master.svg)](https://results.pre-commit.ci/latest/github/nim65s/django-comptes/master)
 [![codecov](https://codecov.io/gh/nim65s/django-comptes/branch/master/graph/badge.svg?token=75XO2X5QW0)](https://codecov.io/gh/nim65s/django-comptes)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0783da8c0461fe95eaf/maintainability)](https://codeclimate.com/github/nim65s/django-comptes/maintainability)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
 ## But
