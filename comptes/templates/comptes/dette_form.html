@@ -6,9 +6,7 @@
 <form method="post" action="" class="form-horizontal" role="form">
   {% csrf_token %}
   {% bootstrap_form form layout="horizontal" %}
-  {% buttons layout="horizontal" %}
-  <button type="submit" class="btn btn-primary">Ok !</button>
-  <button type="submit" class="btn" name="add_another">En ajouter un autre !</button>
-  {% endbuttons %}
+  {% bootstrap_button "Ok" button_type="submit" button_class="btn-success" %}
+  {% bootstrap_button "En ajouter un autre !" button_type="submit" button_class="btn" name="add_another" %}
 </form>
 {% endblock %}
