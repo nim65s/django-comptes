@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0016_remove_occasion_nom'),
+        ("comptes", "0016_remove_occasion_nom"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='dette',
-            name='cree',
+            model_name="dette",
+            name="cree",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='dette',
-            name='modifie',
+            model_name="dette",
+            name="modifie",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AlterField(
-            model_name='remboursement',
-            name='cree',
+            model_name="remboursement",
+            name="cree",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='remboursement',
-            name='modifie',
+            model_name="remboursement",
+            name="modifie",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

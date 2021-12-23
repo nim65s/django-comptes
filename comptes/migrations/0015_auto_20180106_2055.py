@@ -4,7 +4,7 @@ from django.db import migrations, models
 
 
 def rename(apps, schema_editor):
-    Occasion = apps.get_model('comptes', 'Occasion')
+    Occasion = apps.get_model("comptes", "Occasion")
     for occasion in Occasion.objects.all():
         occasion.name = occasion.nom
         occasion.save()
@@ -13,14 +13,14 @@ def rename(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0014_auto_20180106_2054'),
+        ("comptes", "0014_auto_20180106_2054"),
     ]
 
     operations = [
         migrations.RunPython(rename),
         migrations.AlterField(
-            model_name='occasion',
-            name='name',
+            model_name="occasion",
+            name="name",
             field=models.CharField(max_length=200, unique=True),
             preserve_default=False,
         ),

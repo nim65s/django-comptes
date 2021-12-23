@@ -6,8 +6,8 @@ from django.db import migrations
 
 
 def moment(apps, schema_editor):
-    for model in ('Dette', 'Remboursement'):
-        for instance in apps.get_model('comptes', model).objects.all():
+    for model in ("Dette", "Remboursement"):
+        for instance in apps.get_model("comptes", model).objects.all():
             instance.moment = datetime.combine(instance.date, instance.time)
             instance.save()
 
@@ -15,7 +15,7 @@ def moment(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0019_auto_20180106_2130'),
+        ("comptes", "0019_auto_20180106_2130"),
     ]
 
     operations = [

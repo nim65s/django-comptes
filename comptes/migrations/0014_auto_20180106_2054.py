@@ -8,19 +8,21 @@ import autoslug.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0013_verbose_name'),
+        ("comptes", "0013_verbose_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='occasion',
-            name='name',
-            field=models.CharField(default='noname', max_length=200),
+            model_name="occasion",
+            name="name",
+            field=models.CharField(default="noname", max_length=200),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='occasion',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(editable=False, populate_from='name', unique=True),
+            model_name="occasion",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                editable=False, populate_from="name", unique=True
+            ),
         ),
     ]

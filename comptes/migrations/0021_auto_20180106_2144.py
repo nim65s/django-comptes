@@ -6,32 +6,32 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0020_auto_20180106_2130'),
+        ("comptes", "0020_auto_20180106_2130"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='dette',
-            options={'ordering': ['-moment']},
+            name="dette",
+            options={"ordering": ["-moment"]},
         ),
         migrations.AlterModelOptions(
-            name='remboursement',
-            options={'ordering': ['-moment']},
+            name="remboursement",
+            options={"ordering": ["-moment"]},
         ),
         migrations.RemoveField(
-            model_name='dette',
-            name='date',
+            model_name="dette",
+            name="date",
         ),
         migrations.RemoveField(
-            model_name='dette',
-            name='time',
+            model_name="dette",
+            name="time",
         ),
         migrations.RemoveField(
-            model_name='remboursement',
-            name='date',
+            model_name="remboursement",
+            name="date",
         ),
         migrations.RemoveField(
-            model_name='remboursement',
-            name='time',
+            model_name="remboursement",
+            name="time",
         ),
     ]

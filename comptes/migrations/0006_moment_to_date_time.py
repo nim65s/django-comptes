@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 
 def moment_to_date_time(apps, schema_editor):
-    Dette = apps.get_model('comptes', 'Dette')
+    Dette = apps.get_model("comptes", "Dette")
     for dette in Dette.objects.all():
         dette.date = dette.moment.date()
         dette.time = dette.moment.time()
@@ -15,7 +15,7 @@ def moment_to_date_time(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0005_add_date_time_fields'),
+        ("comptes", "0005_add_date_time_fields"),
     ]
 
     operations = [

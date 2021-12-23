@@ -7,19 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comptes', '0018_auto_20180106_2111'),
+        ("comptes", "0018_auto_20180106_2111"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='dette',
-            name='moment',
+            model_name="dette",
+            name="moment",
             field=models.DateTimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='remboursement',
-            name='moment',
+            model_name="remboursement",
+            name="moment",
             field=models.DateTimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
