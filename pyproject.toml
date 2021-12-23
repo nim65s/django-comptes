@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "comptes"
-version = "2.0.1"
+version = "2.0.2"
 description = "Gestion des comptes"
 authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
 license = "BSD-2-CLause"

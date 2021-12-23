@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.2] - 2021-12-23
+
 - pipenv → poetry
 - travis → github actions
 - coveralls → codecov
@@ -44,7 +46,8 @@ This release also adds tests, coverage and continuous integration.
 ## [v0.1.4] - 2016-02-19
 ## [v0.1.3] - 2016-01-21
 
-[Unreleased]: https://github.com/nim65s/django-comptes/compare/v2.0.1...master
+[Unreleased]: https://github.com/nim65s/django-comptes/compare/v2.0.2...master
+[v2.0.2]: https://github.com/nim65s/dmdm/compare/v2.0.1...v2.0.2
 [v2.0.1]: https://github.com/nim65s/django-comptes/compare/v2.0.0...v2.0.1
 [v2.0.0]: https://github.com/nim65s/django-comptes/compare/v1.1.0...v2.0.0
 [v1.1.0]: https://github.com/nim65s/django-comptes/compare/v1.0.1...v1.1.0
