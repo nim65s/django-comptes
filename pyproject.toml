@@ -7,18 +7,36 @@ license = "BSD-2-CLause"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ndh = "^5.1.2"
+ndh = "^5.2.0"
 dmdm = "^1.4.5"
 
 [tool.poetry.dev-dependencies]
-coverage = "^5.5"
+coverage = {extras = ["toml"], version = "^6.3.2"}
 black = "^21.12b0"
-django-stubs = "^1.7.0"
+django-stubs = "^1.9.0"
 flake8 = "^3.9.2"
-mypy = "^0.812"
+mypy = "^0.931"
 pre-commit = "^2.11.1"
-pydocstyle = "^6.0.0"
+pydocstyle = {extras = ["toml"], version = "^6.1.1"}
 safety = "^1.10.3"
+
+[tool.coverage.run]
+source = ["comptes"]
+omit = ["*/migrations/*", "*/wsgi.py", "*/apps.py"]
+
+[tool.django-stubs]
+django_settings_module = "testproject.settings"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+[[tool.mypy.overrides]]
+module = "autoslug.*"
+ignore_missing_imports = "True"
+
+[tool.pydocstyle]
+ignore = "D203,D204"  # https://github.com/google/yapf/issues/744
+match_dir = "(?=[^\\.])(?!migrations).*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
