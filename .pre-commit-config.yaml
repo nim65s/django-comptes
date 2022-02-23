@@ -35,7 +35,7 @@ repos:
         -   django-bootstrap5
         -   django-stubs
         -   types-setuptools
-        -   ndh
+        -   ndh>=5.2.0
 -   repo: https://github.com/psf/black
     rev: 22.1.0
     hooks:
